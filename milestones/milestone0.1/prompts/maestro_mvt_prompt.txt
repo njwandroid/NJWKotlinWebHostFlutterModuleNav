@@ -1,0 +1,14 @@
+I need help creating a minimal viable Maestro test for my Flutter application. I have 12 minutes to create a simple test that proves Maestro can run and interact with my app.
+
+Please help me with the following:
+
+1. Create a basic Maestro flow YAML file that I can place in my maestro/flows directory.
+2. The flow should:
+   - Launch my app
+   - Wait for it to be visible
+   - Assert that a specific text element is visible (let's use "Welcome" or the app's main title)
+   - Take a screenshot for verification
+
+My app has a simple home screen with a title at the top. I need the most minimal YAML file that will work, along with the commands to execute it and capture the screenshot.
+
+If there are any common pitfalls with Maestro, please mention those as well so I can avoid them in this quick implementation.
