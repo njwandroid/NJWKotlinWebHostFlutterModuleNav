@@ -1,0 +1,37 @@
+appId: com.example.myflutternavbarapplication
+---
+# Hello World Maestro Test (Intentionally Failing)
+# This test is designed to fail at the end to verify Maestro is properly set up
+
+# Launch the app
+- launchApp
+
+# Wait for the app to initialize
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Take a screenshot of the initial state
+- takeScreenshot: hello_world_initial_state
+
+# Verify the app launched by checking for the My tab
+- assertVisible:
+    text: "My"
+    timeout: 5000
+
+# Tap on another tab to verify basic navigation
+- tapOn:
+    text: "Billing"
+
+# Verify navigation worked
+- assertVisible:
+    text: "Billing"
+    timeout: 5000
+
+# Take a screenshot after navigation
+- takeScreenshot: hello_world_after_navigation
+
+# This assertion will intentionally fail
+# Replace this with a valid assertion after verifying Maestro setup
+- assertVisible:
+    text: "This element does not exist in the app"
+    timeout: 3000

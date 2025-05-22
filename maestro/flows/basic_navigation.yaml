@@ -1,0 +1,55 @@
+appId: com.example.myflutternavbarapplication
+---
+# Basic Navigation Test
+# This test verifies the app's bottom navigation functionality
+
+# Launch the app
+- launchApp
+
+# Wait for the app to initialize
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Take a screenshot of the initial state
+- takeScreenshot: basic_navigation_initial
+
+# Verify we're on the My tab
+- assertVisible:
+    text: "My"
+    timeout: 5000
+
+# Tap on the Billing tab
+- tapOn:
+    text: "Billing"
+
+# Verify navigation worked
+- assertVisible:
+    text: "Billing"
+    timeout: 5000
+
+# Take a screenshot after navigation
+- takeScreenshot: basic_navigation_billing
+
+# Tap on the Dashboard tab
+- tapOn:
+    text: "Dashboard"
+
+# Verify navigation worked
+- assertVisible:
+    text: "Dashboard"
+    timeout: 5000
+
+# Take a screenshot of Dashboard
+- takeScreenshot: basic_navigation_dashboard
+
+# Return to My tab to complete the cycle
+- tapOn:
+    text: "My"
+
+# Verify we returned to My tab
+- assertVisible:
+    text: "My"
+    timeout: 5000
+
+# Take final screenshot
+- takeScreenshot: basic_navigation_return
