@@ -1,0 +1,19 @@
+I need to set up basic Flutter navigation scaffolding for my app in the next 25 minutes. This will serve as the foundation for more complex navigation patterns I'll implement tomorrow.
+
+Please help me with the following:
+
+1. Set up a basic MaterialApp with named routes.
+2. Create 3 simple placeholder screens:
+   - HomeScreen: The main landing screen
+   - NativeDemoScreen: A screen that will later demonstrate calling native code
+   - DeepLinkTargetScreen: A screen that will be the target of deep links
+
+3. Each screen should:
+   - Have a distinct AppBar title
+   - Display some text indicating which screen it is
+   - Have navigation buttons to the other screens
+   - Follow best practices for Flutter navigation
+
+4. Implement the named routes system in the MaterialApp for navigation between these screens.
+
+I need clean, straightforward code that follows Flutter best practices and will serve as a good foundation for tomorrow's more advanced navigation tasks (deep linking, native-Flutter navigation, etc.).

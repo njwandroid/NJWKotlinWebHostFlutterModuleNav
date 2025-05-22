@@ -24,16 +24,12 @@ planned breaks!
 
 ### 🎯 **Focus: Rapid Implementation & Foundation**
 
-* **(50 min) Task 1: Maestro - The Quick Smoke Test**
-    * **Objective:** Get Maestro running with a basic passing test. Leverage
-      `github_tickets/story_maestro_00_setup_and_demo.md`.
+* **(12 min) Task 1: Maestro - Minimal Viable Test (MVT)**
+    * **Objective:** Prove Maestro runs and can see the app.
     * **Activities:**
-        * (10 min) Verify/Install Maestro CLI.
-        * (10 min) Run the existing sample test (expect failure initially).
-        * (30 min) Identify a simple flow (e.g., app launch, one tap, one assertion) and make it
-          pass. Add a simple accessibility ID.
-    * **Deliverable (MVD):** Maestro installed, one simple test flow passing and recorded (
-      screenshots/short video clip).
+        * (12 min) Create one simple Maestro flow: `launchApp`,
+          `assertVisible: text:'YourAppWelcomeText'`, PR with `.yaml` and screenshot.
+    * **Deliverable (MVD):** A minimal passing Maestro test flow with a PR and screenshot.
 
 * **(15 min) WALK BREAK & RECHARGE**
 
