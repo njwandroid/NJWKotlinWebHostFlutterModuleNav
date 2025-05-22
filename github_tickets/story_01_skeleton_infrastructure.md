@@ -50,6 +50,16 @@ and establishing basic communication between the two.
 
 - None (first story in the epic)
 
+## Simplest Bare Minimum Test Cases
+
+1. **Tab Navigation Test**: Verify that tapping each tab in the bottom navigation loads the
+   corresponding view
+2. **Flutter Embedding Test**: Verify that a simple Flutter view can be displayed within the Android
+   app
+3. **Communication Test**: Verify that a basic string can be passed from Kotlin to Flutter and back
+4. **State Preservation Test**: Verify that switching between tabs preserves their individual states
+5. **Route Handling Test**: Verify that the app can handle a simple route within a Flutter view
+
 ## Notes
 
 This story focuses only on setting up the infrastructure and does not include implementation of the

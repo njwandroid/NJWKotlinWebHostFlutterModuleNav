@@ -114,6 +114,16 @@ class MainTabBarController: UITabBarController {
 
 - None (first story in the epic)
 
+## Simplest Bare Minimum Test Cases
+
+1. **FlutterEngine Initialization**: Verify that the Flutter engine initializes correctly in
+   AppDelegate
+2. **Tab Bar Display**: Verify that all 5 tabs appear with correct titles and icons
+3. **Tab Switching**: Verify that tapping each tab displays the corresponding view controller
+4. **Flutter-Swift Communication**: Verify that a simple string can be passed between platforms
+   using FlutterMethodChannel
+5. **Simulator Compatibility**: Verify that the app runs smoothly in iOS Simulator
+
 ## Notes
 
 This story focuses only on setting up the infrastructure and does not include implementation of the

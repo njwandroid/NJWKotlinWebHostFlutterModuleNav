@@ -87,6 +87,15 @@ abstract class AppBarFlutterApi {
 
 - None (first story in the epic)
 
+## Simplest Bare Minimum Test Cases
+
+1. **Pigeon Code Generation**: Verify that Pigeon correctly generates Dart and Kotlin code from API
+   definitions
+2. **Flutter → Android Title Update**: Verify that Flutter can update the Android app bar title
+3. **Android → Flutter Title Update**: Verify that Android can update Flutter's displayed title
+4. **Error Handling**: Verify that empty or null title values are handled gracefully
+5. **Visual Feedback**: Verify that title updates provide visual feedback to confirm success
+
 ## Notes
 
 This story demonstrates a real-world use case of cross-platform UI updates while keeping the

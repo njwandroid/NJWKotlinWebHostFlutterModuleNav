@@ -3,72 +3,77 @@
   "version": "1.0",
   "prompts_history": [
     {
-      "timestamp": "2023-06-17T14:15:23",
+      "timestamp": "2024-05-22T14:15:23",
       "title": "Initial Project Request",
       "prompt": "Make me a github ticket for a kotlin host app that has tabs My,Billing, Dashboard, Items and ThTif and the bottom navbar is flutter and the home view is kotlin (the host app) and the Billing, Items and ThTif view is flutter. ThTif view should be a flutter view that says To Host Then Inner Flutter for the title with a button that says \"To Host\" that goes to a Kotlin/android view and a \"To Inner Flutter View\" button that goes back to a flutter view"
     },
     {
-      "timestamp": "2023-06-17T14:18:45",
+      "timestamp": "2024-05-22T14:18:45",
       "title": "README Request",
       "prompt": "Please give me readme I can copy/paste into github"
     },
     {
-      "timestamp": "2023-06-17T14:22:10",
+      "timestamp": "2024-05-22T14:22:10",
       "title": "GitHub Issue Format Request",
       "prompt": "Can I please have some markdown I can copy/paste for the github issue"
     },
     {
-      "timestamp": "2023-06-17T14:25:30",
+      "timestamp": "2024-05-22T14:25:30",
       "title": "Navigation Pattern Enhancement",
       "prompt": "Modify to make some tabs show navigating backstack within the navigationbar and some show navigating \"out\" where the navigation bar does not show. Show each of these within Flutter and Host so that it is clearly demonstrated the backstack will \"work\" as expected regardless of tab and technology used"
     },
     {
-      "timestamp": "2023-06-17T14:30:15",
+      "timestamp": "2024-05-22T14:30:15",
       "title": "Epic Story Format Request",
       "prompt": "Please make me a github_epic_description.md file with this info plus an AI section that contains the LOE with Firebender with Claude Sonnet 3.7 and/or Gemini 2.5 Pro, as well as on a scale of 1 to 10 the likelihood of success, likelihood of frustration, likelihood of manual steps and an estimate of number of hours it will take"
     },
     {
-      "timestamp": "2023-06-17T14:35:40",
+      "timestamp": "2024-05-22T14:35:40",
       "title": "Detailed Navigation Requirements",
       "prompt": "This will be an story/epic with subtasks so please make items be a listview in this plan where items will be a flutter listview and item7 will go to a flutter item detail page that can be deep linked to and that billing will be a Kotlin Item Detail Page for a bill that goes to a Kotlin view than can be deeplinked to and Dashboard will have a \"Request Service\" button that goes to a Flutter with no navigation bar and \"My\" Will be a Kotlin view that has a \"Review Contact Info\" CtA Button that goes to a Flutter view nthat is still in the bottom navigation bar and an add person view that goes to a flutter page that shows a spinner and feels like a new section of the app that does not have the navigation bar"
     },
     {
-      "timestamp": "2023-06-17T14:42:12",
+      "timestamp": "2024-05-22T14:42:12",
       "title": "Project Structure Request",
       "prompt": "Please make an ai_guidance folder and a github tickets folder and put the epic ticket in it. Then please create a file in the ai folder general_strategy.md with general advice on how to be effective with AI/LLMS especially as it relates to how to choose between 3.7 Sonnet and Gemini, but note that this advice is from Sonnet. Then create github stories under the epic for appropriate stories for a reasonable plan where the first is the \"skeleton\". Make them all copy/pasteable md files for github ticket description also with AI section that contains the LOE with Firebender with Claude Sonnet 3.7 and/or Gemini 2.5 Pro, as well as on a scale of 1 to 10 the likelook of success, likelihood of frustration, likelihood of manual steps and an estimate of number of hours it will take"
     },
     {
-      "timestamp": "2023-06-17T14:50:33",
+      "timestamp": "2024-05-22T14:50:33",
       "title": "Developer Profile Update",
       "prompt": "Change all the project metrics and time estimates to consider that a senior Flutter Developer is working on it with Kotlin background 5 years past"
     },
     {
-      "timestamp": "2023-06-17T15:00:27",
+      "timestamp": "2024-05-22T15:00:27",
       "title": "Second Epic Request",
       "prompt": "Make the description for the first epic be epic1_navigation and make a second epic be web and do the same plan with the same pattern and metrics but taking into account 1) The flutter dev will have minimal web knowledge 2) The flutter code should need almost no modifications for navigation demo and 3) Initial demo is with index.html and flutter_run_chrome. Make a ticket for the demo with good steps to demo, and make a ticket for deploy to github pages with good steps to do that."
     },
     {
-      "timestamp": "2023-06-17T15:10:15",
+      "timestamp": "2024-05-22T15:10:15",
       "title": "Final Documentation Request",
       "prompt": "Add an ai_interactions_log file with the timestamp for all of these prompts and the record/history of prompts and create a firebender.json file to maintain the prompt history. Also update the demo environment to take into account that flutter_run_chrome should be corrected to whatever the simplest way to run locally on mac is such as open -a web/index.html or similar, with some notes on running/debugging from IDE if feasible"
     },
     {
-      "timestamp": "2023-06-17T15:25:30",
+      "timestamp": "2024-05-22T15:25:30",
       "title": "Platform Communication Epic Request",
       "prompt": "Update interaction log and create an epic with stories for demonstrating 1) Demonstrating pigeon usage with 2 examples and 2) Demonstrating converting one of those two JNIGen. Use some reasonable simple easy to understand possibilities such as updating the app bar from flutter even if it's and Android route or vice versa, possibly using the default battery level method channel, possibly hello world or adding two numbers and gettting a sum or a fake api call- optimize for understandable first, real-world simulation second, speed of implementation third and ease of implementation fourth."
     },
     {
-      "timestamp": "2023-06-17T15:40:15",
+      "timestamp": "2024-05-22T15:40:15",
       "title": "TLDR Request",
       "prompt": "awesome! Give each story a summary/TLDR section at the top for people reviewing to just skim a few lines and understand the purpose and genral idea. (also update ai interaations for this prompt)"
     },
     {
-      "timestamp": "2023-06-17T15:50:20",
+      "timestamp": "2024-05-22T15:50:20",
       "title": "Summary Section Enhancement",
       "prompt": "call the TLDR sections Summary (TLDR) and do it for every single github, optimize each TLDR for readability, quick skimming, bullet points, bold or highlight, in particular the epics. Do this for every github issue in the project so far and add this interaction to the ai interactions log"
     },
     {
-      "timestamp": "2023-06-17T16:05:45",
+      "timestamp": "2024-05-22T15:29:00",
+      "title": "Documentation and Format Refinements",
+      "prompt": "please refer to firebender docs to see if that is really what their rules are supposed to look like, keeping in mind that the tldr section only should apply to MD files, and add this interaction to the logs, and also it's not 2023, please make the session say the correct date and time, it's 3:29pm in my time (central time) on May 22nd. Then create a devx.md file with some tips on how to optimize this process if i have two monitors, how i can review and keep tabs on the process with DITL (developer in the loop vibe coding), and make each github ticket have a 'simplest bare minimum test cases' section."
+    },
+    {
+      "timestamp": "2024-05-22T15:45:00",
       "title": "iOS Version Request",
       "prompt": "now create another epic to do all of this for a new project with the host app as iOS. Keep in mind the flutter developer has limited swift/ios experience, but include metrics in case a dev more experienced in ios/swt takes on the epic. Optimize for demo on the simulator but include an optional/stretch goal story to deploy to firebase app distribution"
     }

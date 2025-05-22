@@ -149,3 +149,14 @@ Flutter-Android integration has improved significantly in recent releases, but t
 implementation with multiple navigation patterns will require careful architecture planning. Expect
 to spend approximately 30% of development time working through integration edge cases and backstack
 management.
+
+## Simplest Bare Minimum Test Cases
+
+1. **Basic Tab Navigation**: Verify navigation between all 5 tabs works correctly
+2. **Cross-Technology Navigation**: Verify Flutter → Kotlin and Kotlin → Flutter navigation works
+3. **Backstack Behavior**: Verify back button correctly returns to previous screens across
+   technology boundaries
+4. **Deep Link Navigation**: Verify deep links correctly navigate to target screens
+5. **Navigation Bar Visibility**: Verify bottom navigation bar shows/hides according to requirements
+6. **State Preservation**: Verify app state is maintained when navigating between tabs
+7. **Visual Transitions**: Verify transitions between screens are smooth without visual glitches
