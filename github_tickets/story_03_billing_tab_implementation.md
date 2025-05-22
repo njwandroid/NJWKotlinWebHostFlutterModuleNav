@@ -1,5 +1,18 @@
 # Story: Implement Billing Tab with Flutter-to-Kotlin Navigation
 
+## Summary (TLDR)
+
+**Create a Flutter-based Billing tab that navigates to a native Kotlin detail page.**
+
+* **Key Features**:
+   * Flutter implementation of bill list
+   * Navigation from Flutter view to **Kotlin detail page**
+   * **Deep linking** support for direct access to bill details
+* **Technical Focus**:
+   * Flutter → Kotlin navigation with proper backstack handling
+   * State preservation when returning to Flutter list
+* **Time Estimate**: 10-12 hours
+
 ## Description
 
 Implement the "Billing" tab as a Flutter view with navigation to a Kotlin detail page, demonstrating

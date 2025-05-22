@@ -1,5 +1,18 @@
 # Story: Implement My Tab with Mixed-Technology Navigation
 
+## Summary (TLDR)
+
+**Implement the My tab (Kotlin) with two distinct navigation patterns to Flutter views.**
+
+* **Key Features**:
+  * **"Review Contact Info" button**: Navigates to Flutter view **keeping bottom nav visible**
+  * **"Add Person" button**: Navigates to Flutter view as **full-screen** (bottom nav hidden)
+  * Loading spinner demonstration in Flutter view
+* **Technical Focus**:
+  * Maintaining proper backstack behavior between technologies
+  * State preservation when returning to native view
+* **Time Estimate**: 8-10 hours
+
 ## Description
 
 Implement the "My" tab as a native Kotlin view with navigation to Flutter views, demonstrating both

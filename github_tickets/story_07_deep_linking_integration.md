@@ -1,5 +1,19 @@
 # Story: Implement Deep Linking and Integration Testing
 
+## Summary (TLDR)
+
+**Create comprehensive deep linking infrastructure and integration tests for all navigation paths.**
+
+* **Key Features**:
+  * Deep link handlers for both Kotlin and Flutter views
+  * Test cases for **direct navigation** to specific screens
+  * Integration tests verifying all **navigation patterns**
+  * Documentation of deep link URL formats
+* **Technical Focus**:
+  * Ensuring consistent navigation behavior in all scenarios
+  * Verifying state preservation when navigating via deep links
+* **Time Estimate**: 10-12 hours
+
 ## Description
 
 Implement comprehensive deep linking infrastructure across the application and create integration

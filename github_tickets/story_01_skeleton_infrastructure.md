@@ -1,5 +1,17 @@
 # Story: Setup Base Hybrid App Infrastructure
 
+## Summary (TLDR)
+
+**Set up foundational infrastructure for combining Flutter and Kotlin in a single app.**
+
+* **Key Setup**:
+   * Android project with Kotlin support
+   * Flutter module properly embedded in Android
+   * Bottom navigation with 5 tabs
+   * Platform channel for basic Flutter-Kotlin communication
+* **Goal**: Create working project structure that supports future navigation features
+* **Time Estimate**: 10-12 hours
+
 ## Description
 
 Set up the foundational infrastructure for a hybrid Kotlin-Flutter application with a bottom

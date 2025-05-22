@@ -1,5 +1,19 @@
 # Epic: Multi-Technology Hybrid App with Advanced Navigation Patterns
 
+## Summary (TLDR)
+
+**Create a hybrid Android application demonstrating seamless navigation between Flutter and Kotlin
+views.**
+
+* **Core Tech**: Flutter module embedded in Kotlin Android app
+* **Key Features**:
+    * Bottom navigation with 5 tabs (My, Billing, Dashboard, Items, ThTif)
+    * Both **in-tab navigation** (nav bar visible) and **full-screen** flows (nav bar hidden)
+    * **Cross-technology transitions** in both directions (Flutter↔Kotlin)
+    * **Deep linking** to specific screens regardless of technology
+* **Primary Goal**: Demonstrate consistent backstack behavior across technology boundaries
+* **Time Estimate**: 50-70 hours total implementation
+
 ## Description
 
 Implement a comprehensive hybrid application that combines native Kotlin and Flutter views with

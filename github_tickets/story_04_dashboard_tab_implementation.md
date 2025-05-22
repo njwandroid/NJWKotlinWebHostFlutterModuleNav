@@ -1,5 +1,18 @@
 # Story: Implement Dashboard Tab with Request Service Navigation
 
+## Summary (TLDR)
+
+**Implement Dashboard tab with a button that navigates to a full-screen Flutter view.**
+
+* **Key Features**:
+  * Dashboard implementation (technology TBD)
+  * **"Request Service" button** that launches a Flutter view
+  * Full-screen navigation with **bottom navigation hidden**
+* **Technical Focus**:
+  * Proper state management between main flow and service request flow
+  * Smooth transitions between views
+* **Time Estimate**: 6-8 hours
+
 ## Description
 
 Implement the "Dashboard" tab with a "Request Service" button that navigates to a full-screen

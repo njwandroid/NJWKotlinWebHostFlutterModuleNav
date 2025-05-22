@@ -1,5 +1,19 @@
 # Story: Implement ThTif Tab with Complex Cross-Technology Navigation
 
+## Summary (TLDR)
+
+**Create the most complex navigation showcase with multiple cross-technology transitions.**
+
+* **Key Features**:
+  * Flutter view with title "To Host Then Inner Flutter"
+  * **"To Host" button**: Navigates from Flutter to Kotlin view
+  * **"To Inner Flutter View" button**: Navigates to another Flutter view
+  * Both in-tab and full-screen navigation patterns
+* **Technical Focus**:
+  * Complex backstack behavior across multiple technology transitions
+  * Maintaining consistent user experience in multi-level navigation
+* **Time Estimate**: 10-14 hours
+
 ## Description
 
 Implement the "ThTif" tab as a Flutter view with advanced navigation capabilities that demonstrate

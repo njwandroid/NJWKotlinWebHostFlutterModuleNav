@@ -1,5 +1,19 @@
 # Story: Implement Items Tab with ListView and Deep Linking
 
+## Summary (TLDR)
+
+**Create a Flutter ListView that navigates to detail pages with deep linking support.**
+
+* **Key Features**:
+    * Flutter implementation of scrollable item list
+    * Item detail page in Flutter
+    * **Special handling for Item7** with visual distinction
+    * **Deep linking** directly to Item7 detail page
+* **Technical Focus**:
+    * List state preservation when navigating back
+    * Implementing deep linking within Flutter views
+* **Time Estimate**: 5-7 hours
+
 ## Description
 
 Implement the "Items" tab as a Flutter ListView with navigation to a detail page for Item7,
