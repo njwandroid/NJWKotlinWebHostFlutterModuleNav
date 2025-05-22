@@ -7,8 +7,7 @@ appId: com.example.myflutternavbarapplication
 - launchApp
 
 # Wait for the app to initialize
-- waitForAnimationToEnd:
-    timeout: 5000
+- waitForAnimationToEnd
 
 # Take a screenshot of the initial state
 - takeScreenshot: basic_navigation_initial
@@ -16,7 +15,6 @@ appId: com.example.myflutternavbarapplication
 # Verify we're on the My tab
 - assertVisible:
     text: "My"
-    timeout: 5000
 
 # Tap on the Billing tab
 - tapOn:
@@ -25,7 +23,6 @@ appId: com.example.myflutternavbarapplication
 # Verify navigation worked
 - assertVisible:
     text: "Billing"
-    timeout: 5000
 
 # Take a screenshot after navigation
 - takeScreenshot: basic_navigation_billing
@@ -37,7 +34,6 @@ appId: com.example.myflutternavbarapplication
 # Verify navigation worked
 - assertVisible:
     text: "Dashboard"
-    timeout: 5000
 
 # Take a screenshot of Dashboard
 - takeScreenshot: basic_navigation_dashboard
@@ -49,7 +45,6 @@ appId: com.example.myflutternavbarapplication
 # Verify we returned to My tab
 - assertVisible:
     text: "My"
-    timeout: 5000
 
 # Take final screenshot
 - takeScreenshot: basic_navigation_return

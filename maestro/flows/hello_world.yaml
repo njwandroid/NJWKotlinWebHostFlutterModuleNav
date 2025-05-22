@@ -7,8 +7,7 @@ appId: com.example.myflutternavbarapplication
 - launchApp
 
 # Wait for the app to initialize
-- waitForAnimationToEnd:
-    timeout: 5000
+- waitForAnimationToEnd
 
 # Take a screenshot of the initial state
 - takeScreenshot: hello_world_initial_state
@@ -16,7 +15,6 @@ appId: com.example.myflutternavbarapplication
 # Verify the app launched by checking for the My tab
 - assertVisible:
     text: "My"
-    timeout: 5000
 
 # Tap on another tab to verify basic navigation
 - tapOn:
@@ -25,13 +23,10 @@ appId: com.example.myflutternavbarapplication
 # Verify navigation worked
 - assertVisible:
     text: "Billing"
-    timeout: 5000
 
 # Take a screenshot after navigation
 - takeScreenshot: hello_world_after_navigation
 
-# This assertion will intentionally fail
-# Replace this with a valid assertion after verifying Maestro setup
+# Replace the intentionally failing assertion with a valid one
 - assertVisible:
-    text: "This element does not exist in the app"
-    timeout: 3000
+    text: "Billing"
