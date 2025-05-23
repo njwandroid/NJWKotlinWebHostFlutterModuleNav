@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">My Flutter NavBar Application</string>
+    <string name="tf">TF</string>
 </resources>
