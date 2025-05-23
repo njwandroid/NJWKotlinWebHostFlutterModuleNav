@@ -1,4 +1,4 @@
-appId: com.example.myflutternavbarapplication
+appId: com.neiljaywarner.myflutternavbarapplication
 ---
 # Basic Navigation Test
 # This test verifies the app's bottom navigation functionality
@@ -14,37 +14,37 @@ appId: com.example.myflutternavbarapplication
 
 # Verify we're on the My tab
 - assertVisible:
-    text: "My"
+      text: "My"
 
 # Tap on the Billing tab
 - tapOn:
-    text: "Billing"
+      text: "Billing"
 
 # Verify navigation worked
 - assertVisible:
-    text: "Billing"
+      text: "Billing"
 
 # Take a screenshot after navigation
 - takeScreenshot: basic_navigation_billing
 
 # Tap on the Dashboard tab
 - tapOn:
-    text: "Dashboard"
+      text: "Dashboard"
 
 # Verify navigation worked
 - assertVisible:
-    text: "Dashboard"
+      text: "Dashboard"
 
 # Take a screenshot of Dashboard
 - takeScreenshot: basic_navigation_dashboard
 
 # Return to My tab to complete the cycle
 - tapOn:
-    text: "My"
+      text: "My"
 
 # Verify we returned to My tab
 - assertVisible:
-    text: "My"
+      text: "My"
 
 # Take final screenshot
 - takeScreenshot: basic_navigation_return

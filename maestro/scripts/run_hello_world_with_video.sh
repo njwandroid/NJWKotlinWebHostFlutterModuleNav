@@ -6,6 +6,45 @@ YELLOW='\033[0;33m'
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 
+# Default settings
+GENERATE_AI_REPORT=false
+CLEAN_BUILD=false
+
+# Help message
+print_help() {
+    echo "Usage: $0 [OPTIONS]"
+    echo "Run a Maestro hello world test and generate a video of its output."
+    echo ""
+    echo "Options:"
+    echo "  -h, --help             Show this help message and exit"
+    echo "  -a, --ai-report        Generate an AI-enhanced test report (default: false)"
+    echo "  -c, --clean            Clean build before running tests (default: false)"
+    echo ""
+}
+
+# Parse command line arguments
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        -h|--help)
+            print_help
+            exit 0
+            ;;
+        -a|--ai-report)
+            GENERATE_AI_REPORT=true
+            shift
+            ;;
+        -c|--clean)
+            CLEAN_BUILD=true
+            shift
+            ;;
+        *)
+            echo "Unknown option: $1"
+            print_help
+            exit 1
+            ;;
+    esac
+done
+
 # Find and setup Android SDK tools
 setup_android_tools() {
     echo -e "${YELLOW}Setting up Android SDK tools...${NC}"
@@ -116,6 +155,81 @@ start_emulator() {
     return 1
 }
 
+# Function to build and install the app
+build_and_install_app() {
+    echo -e "${YELLOW}Building and installing the app...${NC}"
+    
+    # Check for Gradle wrapper
+    if [ ! -f "./gradlew" ]; then
+        echo -e "${RED}Gradle wrapper not found. Make sure you're in the correct directory.${NC}"
+        return 1
+    fi
+    
+    # Clean if requested
+    if [ "$CLEAN_BUILD" = true ]; then
+        echo -e "${YELLOW}Cleaning previous builds...${NC}"
+        if ./gradlew clean; then
+            echo -e "${GREEN}Clean completed.${NC}"
+        else
+            echo -e "${RED}Clean failed.${NC}"
+            return 1
+        fi
+    fi
+    
+    # Build the app
+    echo -e "${YELLOW}Building app for debugging...${NC}"
+    if ./gradlew assembleDebug; then
+        echo -e "${GREEN}App build successful!${NC}"
+    else
+        echo -e "${RED}App build failed.${NC}"
+        return 1
+    fi
+    
+    # Install the app on the device
+    echo -e "${YELLOW}Installing app on device...${NC}"
+    APK_PATH="app/build/outputs/apk/debug/app-debug.apk"
+    if [ -f "$APK_PATH" ]; then
+        if adb install -r "$APK_PATH"; then
+            echo -e "${GREEN}App installed successfully!${NC}"
+            return 0
+        else
+            echo -e "${RED}App installation failed.${NC}"
+            return 1
+        fi
+    else
+        echo -e "${RED}APK not found at $APK_PATH${NC}"
+        return 1
+    fi
+}
+
+# Function to generate AI report
+generate_ai_report() {
+    echo -e "${YELLOW}Generating AI-enhanced report...${NC}"
+    
+    # Define output paths
+    JSON_RESULTS="./maestro_results_$(date +%Y%m%d_%H%M%S).json"
+    
+    # Run the test with JSON output
+    if maestro test --format=json --output="$JSON_RESULTS" maestro/flows/hello_world.yaml; then
+        # Generate the AI report
+        if [ -f "maestro/scripts/generate_ai_report.py" ]; then
+            if python maestro/scripts/generate_ai_report.py "$JSON_RESULTS"; then
+                echo -e "${GREEN}AI report generated!${NC}"
+                return 0
+            else
+                echo -e "${RED}AI report generation failed!${NC}"
+                return 1
+            fi
+        else
+            echo -e "${RED}AI report script not found at maestro/scripts/generate_ai_report.py${NC}"
+            return 1
+        fi
+    else
+        echo -e "${RED}Failed to generate JSON test results for AI report.${NC}"
+        return 1
+    fi
+}
+
 # Output directory for video
 VIDEO_DIR="./maestro_videos"
 VIDEO_PATH="$VIDEO_DIR/hello_world_$(date +%Y%m%d_%H%M%S).mp4"
@@ -144,6 +258,12 @@ if ! check_device_availability; then
     fi
 fi
 
+# Build and install the app
+if ! build_and_install_app; then
+    echo -e "${RED}Failed to build and install the app. Exiting.${NC}"
+    exit 1
+fi
+
 echo -e "${YELLOW}Running Maestro Hello World test...${NC}"
 echo -e "${YELLOW}This will launch the app and perform basic navigation testing${NC}"
 
@@ -153,7 +273,8 @@ if maestro test maestro/flows/hello_world.yaml; then
     
     echo -e "${YELLOW}Now recording a video of the test...${NC}"
     # Use the record command to generate a video
-    if maestro record maestro/flows/hello_world.yaml -o "$VIDEO_PATH" --local; then
+    # Note: --local flag first, then flow file, then output path
+    if maestro record --local maestro/flows/hello_world.yaml "$VIDEO_PATH"; then
         echo -e "${GREEN}Video recording completed successfully!${NC}"
         echo -e "${GREEN}Video saved to: ${VIDEO_PATH}${NC}"
         
@@ -170,31 +291,16 @@ if maestro test maestro/flows/hello_world.yaml; then
     else
         echo -e "${RED}Video recording failed!${NC}"
     fi
+    
+    # Generate AI report if requested
+    if [ "$GENERATE_AI_REPORT" = true ]; then
+        generate_ai_report
+    fi
+    
 else
     echo -e "${RED}Test failed! Not proceeding with video recording.${NC}"
     echo -e "${YELLOW}Fix the test errors before attempting to record a video.${NC}"
     exit 1
-fi
-
-echo -e "${YELLOW}Would you like to generate an AI-enhanced report? (y/n)${NC}"
-read -r generate_report
-
-if [[ "$generate_report" == "y" || "$generate_report" == "Y" ]]; then
-    echo -e "${YELLOW}Generating AI-enhanced report...${NC}"
-    
-    # Define output paths
-    JSON_RESULTS="./maestro_results_$(date +%Y%m%d_%H%M%S).json"
-    
-    # Run the test with JSON output
-    maestro test --format=json --output="$JSON_RESULTS" maestro/flows/hello_world.yaml
-    
-    # Generate the AI report
-    if [ -f "maestro/scripts/generate_ai_report.py" ]; then
-        python maestro/scripts/generate_ai_report.py "$JSON_RESULTS"
-        echo -e "${GREEN}AI report generated!${NC}"
-    else
-        echo -e "${RED}AI report script not found at maestro/scripts/generate_ai_report.py${NC}"
-    fi
 fi
 
 echo -e "${GREEN}Done!${NC}"

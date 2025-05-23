@@ -1,7 +1,7 @@
-appId: com.example.myflutternavbarapplication
+appId: com.neiljaywarner.myflutternavbarapplication
 ---
-# Hello World Maestro Test (Intentionally Failing)
-# This test is designed to fail at the end to verify Maestro is properly set up
+# Hello World Maestro Test
+# This test verifies the app's bottom navigation functionality
 
 # Launch the app
 - launchApp
@@ -14,19 +14,19 @@ appId: com.example.myflutternavbarapplication
 
 # Verify the app launched by checking for the My tab
 - assertVisible:
-    text: "My"
+      text: "My"
 
 # Tap on another tab to verify basic navigation
 - tapOn:
-    text: "Billing"
+      text: "Billing"
 
 # Verify navigation worked
 - assertVisible:
-    text: "Billing"
+      text: "Billing"
 
 # Take a screenshot after navigation
 - takeScreenshot: hello_world_after_navigation
 
-# Replace the intentionally failing assertion with a valid one
+# Final verification
 - assertVisible:
-    text: "Billing"
+      text: "Billing"
