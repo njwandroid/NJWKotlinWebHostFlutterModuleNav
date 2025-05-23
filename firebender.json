@@ -21,6 +21,47 @@
       "trigger": "session_complete",
       "action": "generate_summary",
       "output_format": "markdown"
+    },
+    "ditl_tracking": {
+      "trigger": "complex_session_start",
+      "action": "create_ditl_file",
+      "conditions": [
+        "session_has_multiple_critical_issues",
+        "session_duration_expected_over_20_minutes",
+        "requires_human_monitoring"
+      ],
+      "template": "temporary_files/ditl_template.md",
+      "location": "temporary_files/",
+      "naming_pattern": "temporary_ditl_{session_date}_{time_period}.md"
+    }
+  },
+  "ditl_rules": {
+    "when_to_use": {
+      "complex_debugging": "Use DITL for multi-file debugging sessions with build failures",
+      "integration_work": "Use DITL when integrating multiple technologies (Flutter + Android)",
+      "critical_fixes": "Use DITL when fixing blocking issues that prevent core functionality",
+      "long_sessions": "Use DITL for any session expected to take >20 minutes",
+      "high_stakes": "Use DITL when failure would significantly impact project timeline"
+    },
+    "ditl_structure": {
+      "status_tracking": "Always include clear status indicators (🔴 🟡 ✅) for immediate visual feedback",
+      "human_observation_space": "Reserve dedicated space for human notes with timestamps",
+      "technical_state": "Track file modifications, build status, and test results",
+      "session_control": "Include PAUSE/RESUME/STOP commands for human control",
+      "success_criteria": "Define clear, measurable success criteria upfront"
+    },
+    "best_practices": {
+      "real_time_updates": "AI should update DITL file in real-time as work progresses",
+      "visual_indicators": "Use emojis and clear formatting for quick status assessment",
+      "human_friendly": "Write for humans monitoring, not just for AI reference",
+      "preserve_context": "Capture enough technical context for resumption after interruption",
+      "celebration": "Clearly mark successes and completions for psychological reward"
+    },
+    "human_interaction": {
+      "observation_points": "Provide specific places for human to add timestamped observations",
+      "control_mechanisms": "Give humans clear ways to pause, redirect, or stop AI work",
+      "status_dashboard": "Create scannable overview of current progress and blockers",
+      "escalation_triggers": "Define when human intervention is recommended"
     }
   },
   "current_session": {

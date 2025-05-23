@@ -1,0 +1,22 @@
+I need to implement Android deep links and get my Flutter app running on web within 60 minutes. Yesterday, I created a Flutter app with basic navigation and screens (HomeScreen, NativeDemoScreen, DeepLinkTargetScreen).
+
+Please help me with the following:
+
+1. Implement Android deep linking:
+   - Configure AndroidManifest.xml to handle a custom scheme (e.g., `myapp://deeplink`)
+   - Set up code to extract parameters from deep links (if applicable)
+   - Navigate to the DeepLinkTargetScreen when a deep link is activated
+   - Include instructions for testing with adb or another method
+
+2. Configure and run the app on web:
+   - Explain any web-specific configuration needed
+   - Guide me through building and running the app on web
+   - Note any adjustments needed for web navigation to work properly
+   - Highlight key differences between mobile and web navigation
+
+3. Test backstack behavior:
+   - How to properly handle back navigation with deep links
+   - Web-specific considerations for history navigation
+   - Best practices for consistent behavior across platforms
+
+Please provide complete code samples and configuration instructions. The goal is to demonstrate deep linking on Android and have the app running on web with proper navigation within this 60-minute timeframe.

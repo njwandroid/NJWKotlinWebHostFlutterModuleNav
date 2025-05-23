@@ -2,4 +2,8 @@
 <resources>
 
     <style name="Theme.MyFlutterNavBarApplication" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="LaunchTheme" parent="@android:style/Theme.Light.NoTitleBar">
+        <item name="android:windowBackground">@android:color/white</item>
+    </style>
 </resources>

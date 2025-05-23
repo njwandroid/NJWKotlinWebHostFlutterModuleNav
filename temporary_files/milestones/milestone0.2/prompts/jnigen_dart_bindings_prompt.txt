@@ -1,0 +1,32 @@
+I need to complete my JNIgen integration within the next 40 minutes. Yesterday, I created the Kotlin side with a simple function:
+
+```kotlin
+/**
+ * A simple greeting function to demonstrate JNIgen.
+ *
+ * @param name The name to greet
+ * @return A greeting message from Kotlin
+ */
+fun greet(name: String): String {
+    return "Hello, $name from Kotlin!"
+}
+```
+
+Now I need to:
+
+1. Generate the Dart bindings for this Kotlin function using JNIgen:
+   - Provide the exact commands to run
+   - Explain what the generated files are and where they should go
+   - Address any common errors or issues that might occur
+
+2. Integrate these bindings into my Flutter app:
+   - Import the necessary files
+   - Create a UI element (button) on the HomeScreen that calls this function
+   - Display the result in a Text widget
+   - Handle potential errors properly
+
+3. Test the integration:
+   - How to verify it's working end-to-end
+   - Troubleshooting tips if the call fails
+
+Please provide complete code samples and instructions for both the binding generation and Flutter implementation. The goal is to have a working demo where I can press a button in my Flutter app and see the result from the Kotlin function.

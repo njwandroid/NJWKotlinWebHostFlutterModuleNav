@@ -28,9 +28,9 @@ appId: com.neiljaywarner.myflutternavbarapplication
 # Take screenshot after tapping TF button
 - takeScreenshot: flutter_launched_state
 
-# Verify Flutter "Hello World" screen appeared
+# Verify Flutter animated text is visible
 - assertVisible:
-    text: "Hello World from Flutter!"
+    text: "THIS IS IN FLUTTER"
 
 # Verify Flutter app bar is present
 - assertVisible:
