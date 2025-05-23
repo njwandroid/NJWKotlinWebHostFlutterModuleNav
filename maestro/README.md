@@ -56,5 +56,37 @@ maestro test flows/hello_world.yaml
 maestro test flows/
 
 # Run with video recording
-maestro test --video flows/hello_world.yaml
+maestro record --local flows/hello_world.yaml output_video.mp4
 ```
+
+## Using the Test Runner Script
+
+We've created a convenient script that streamlines the entire testing process, handling device
+detection, app building, test execution, and video recording in one command:
+
+```bash
+# Run a test with default options
+./maestro/scripts/run_maestro_test.sh flows/hello_world.yaml
+
+# Run with AI-enhanced test report
+./maestro/scripts/run_maestro_test.sh --ai-report flows/hello_world.yaml
+
+# Clean build before running test
+./maestro/scripts/run_maestro_test.sh --clean flows/hello_world.yaml
+
+# Run without video recording
+./maestro/scripts/run_maestro_test.sh --no-video flows/hello_world.yaml
+```
+
+The script automatically:
+
+- Detects and sets up Android SDK tools
+- Checks for available devices
+- Starts an emulator if no device is available
+- Builds and installs the app
+- Executes the specified Maestro test
+- Records a video of the test (unless disabled)
+- Generates an AI-enhanced report (if requested)
+
+For more details on contributing to Maestro testing, see
+our [Contributing Guide](./CONTRIBUTING.md).
