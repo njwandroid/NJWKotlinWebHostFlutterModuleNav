@@ -1,0 +1,140 @@
+16:45:02.156 [ INFO] MAESTRO.logSystemInfo: ---- System Info ----
+16:45:02.157 [ INFO] MAESTRO.logSystemInfo: Maestro Version: 1.40.3
+16:45:02.157 [ INFO] MAESTRO.logSystemInfo: CI: Undefined
+16:45:02.157 [ INFO] MAESTRO.logSystemInfo: OS Name: Mac OS X
+16:45:02.157 [ INFO] MAESTRO.logSystemInfo: OS Version: 15.3.2
+16:45:02.158 [ INFO] MAESTRO.logSystemInfo: Architecture: aarch64
+16:45:02.158 [ INFO] MAESTRO.logSystemInfo: Java Version: 23
+16:45:02.181 [DEBUG] io.micrometer.common.util.internal.logging.InternalLoggerFactory.newDefaultFactory: Using SLF4J as the default logging framework
+16:45:02.402 [ INFO] MAESTRO.logSystemInfo: Xcode Version: 16.3
+16:45:03.049 [ INFO] MAESTRO.logSystemInfo: Flutter Version: 3.32.0
+16:45:03.549 [ INFO] MAESTRO.logSystemInfo: Flutter Channel: stable
+16:45:03.549 [ INFO] MAESTRO.logSystemInfo: ---------------------
+16:45:04.180 [ INFO] maestro.cli.command.TestCommand.runShardSuite: [shard 1] Selected device 48050DLAQ0091E using port 7001
+16:45:10.092 [ INFO] maestro.orchestra.Orchestra.initAI: [Orchestra] Initializing AI
+16:45:10.092 [ INFO] maestro.Maestro.invoke: Getting device info
+16:45:10.270 [ INFO] maestro.Maestro.invoke: Got device info: DeviceInfo(platform=ANDROID, widthPixels=1080, heightPixels=2424, widthGrid=1080, heightGrid=2424)
+16:45:10.324 [ INFO] maestro.cli.runner.TestSuiteInteractor.invoke: Define variables RUNNING
+16:45:10.326 [ INFO] maestro.cli.runner.TestSuiteInteractor.invoke: Define variables COMPLETED
+16:45:10.326 [ INFO] maestro.cli.runner.TestSuiteInteractor.invoke: Apply configuration RUNNING
+16:45:10.326 [ INFO] maestro.cli.runner.TestSuiteInteractor.invoke: Apply configuration COMPLETED
+16:45:10.327 [ INFO] maestro.cli.runner.TestSuiteInteractor.invoke: Launch app "com.neiljaywarner.myflutternavbarapplication" RUNNING
+16:45:44.250 [ INFO] maestro.drivers.AndroidDriver.close: [Start] close port forwarder
+16:45:45.210 [ INFO] maestro.Maestro.launchApp: Launching app com.neiljaywarner.myflutternavbarapplication
+16:45:45.413 [ INFO] maestro.cli.runner.TestSuiteInteractor.invoke: Launch app "com.neiljaywarner.myflutternavbarapplication" COMPLETED
+16:45:45.413 [ INFO] maestro.cli.runner.TestSuiteInteractor.invoke: Wait for animation to end RUNNING
+16:45:45.414 [ INFO] maestro.Maestro.waitForAnimationToEnd: Waiting for animation to end with timeout 15000
+16:45:45.416 [TRACE] maestro.utils.ScreenshotUtils.takeScreenshot: Taking screenshot to byte array
+16:45:45.416 [TRACE] maestro.utils.ScreenshotUtils.takeScreenshot: Taking screenshot to output sink
+16:45:46.370 [ WARN] maestro.utils.ScreenshotUtils.tryTakingScreenshot: Failed to take screenshot
+java.lang.IllegalStateException: Shutdown in progress
+	at java.base/java.lang.ApplicationShutdownHooks.add(ApplicationShutdownHooks.java:67)
+	at java.base/java.lang.Runtime.addShutdownHook(Runtime.java:250)
+	at java.desktop/com.sun.imageio.stream.StreamCloser.lambda$addToQueue$0(StreamCloser.java:101)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:319)
+	at java.desktop/com.sun.imageio.stream.StreamCloser.addToQueue(StreamCloser.java:89)
+	at java.desktop/javax.imageio.stream.FileCacheImageInputStream.<init>(FileCacheImageInputStream.java:109)
+	at java.desktop/com.sun.imageio.spi.InputStreamImageInputStreamSpi.createInputStreamInstance(InputStreamImageInputStreamSpi.java:69)
+	at java.desktop/javax.imageio.ImageIO.createImageInputStream(ImageIO.java:357)
+	at java.desktop/javax.imageio.ImageIO.read(ImageIO.java:1359)
+	at maestro.utils.ScreenshotUtils$Companion.tryTakingScreenshot(ScreenshotUtils.kt:32)
+	at maestro.utils.ScreenshotUtils$Companion$waitUntilScreenIsStatic$1.invoke(ScreenshotUtils.kt:78)
+	at maestro.utils.ScreenshotUtils$Companion$waitUntilScreenIsStatic$1.invoke(ScreenshotUtils.kt:77)
+	at maestro.utils.MaestroTimer.retryUntilTrue(MaestroTimer.kt:38)
+	at maestro.utils.MaestroTimer.retryUntilTrue$default(MaestroTimer.kt:26)
+	at maestro.utils.ScreenshotUtils$Companion.waitUntilScreenIsStatic(ScreenshotUtils.kt:77)
+	at maestro.Maestro.waitForAnimationToEnd(Maestro.kt:580)
+	at maestro.orchestra.Orchestra.waitForAnimationToEndCommand(Orchestra.kt:492)
+	at maestro.orchestra.Orchestra.executeCommand(Orchestra.kt:323)
+	at maestro.orchestra.Orchestra.executeCommands(Orchestra.kt:212)
+	at maestro.orchestra.Orchestra.runFlow(Orchestra.kt:143)
+	at maestro.cli.runner.TestSuiteInteractor.runFlow(TestSuiteInteractor.kt:237)
+	at maestro.cli.runner.TestSuiteInteractor.runTestSuite(TestSuiteInteractor.kt:95)
+	at maestro.cli.command.TestCommand.runMultipleFlows(TestCommand.kt:433)
+	at maestro.cli.command.TestCommand.access$runMultipleFlows(TestCommand.kt:65)
+	at maestro.cli.command.TestCommand$runShardSuite$1.invoke(TestCommand.kt:364)
+	at maestro.cli.command.TestCommand$runShardSuite$1.invoke(TestCommand.kt:341)
+	at maestro.cli.session.MaestroSessionManager.newSession(MaestroSessionManager.kt:126)
+	at maestro.cli.session.MaestroSessionManager.newSession$default(MaestroSessionManager.kt:63)
+	at maestro.cli.command.TestCommand.runShardSuite(TestCommand.kt:341)
+	at maestro.cli.command.TestCommand.access$runShardSuite(TestCommand.kt:65)
+	at maestro.cli.command.TestCommand$handleSessions$1$results$1$1.invokeSuspend(TestCommand.kt:308)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:104)
+	at kotlinx.coroutines.internal.LimitedDispatcher$Worker.run(LimitedDispatcher.kt:111)
+	at kotlinx.coroutines.scheduling.TaskImpl.run(Tasks.kt:99)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:585)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.executeTask(CoroutineScheduler.kt:802)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker(CoroutineScheduler.kt:706)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:693)
+16:45:46.370 [TRACE] maestro.utils.ScreenshotUtils.takeScreenshot: Taking screenshot to byte array
+16:45:46.370 [TRACE] maestro.utils.ScreenshotUtils.takeScreenshot: Taking screenshot to output sink
+16:45:46.644 [TRACE] maestro.utils.ScreenshotUtils.takeScreenshot: Taking screenshot to byte array
+16:45:46.644 [TRACE] maestro.utils.ScreenshotUtils.takeScreenshot: Taking screenshot to output sink
+16:45:46.849 [TRACE] maestro.utils.ScreenshotUtils.takeScreenshot: Taking screenshot to byte array
+16:45:46.849 [TRACE] maestro.utils.ScreenshotUtils.takeScreenshot: Taking screenshot to output sink
+16:45:47.225 [ INFO] maestro.cli.runner.TestSuiteInteractor.invoke: Wait for animation to end COMPLETED
+16:45:47.226 [ INFO] maestro.cli.runner.TestSuiteInteractor.invoke: Take screenshot android_initial_state RUNNING
+16:45:47.226 [ INFO] maestro.Maestro.takeScreenshot: Taking screenshot to a file: android_initial_state.png
+16:45:47.227 [TRACE] maestro.utils.ScreenshotUtils.takeScreenshot: Taking screenshot to output sink
+16:45:47.423 [ INFO] maestro.cli.runner.TestSuiteInteractor.invoke: Take screenshot android_initial_state COMPLETED
+16:45:47.424 [ INFO] maestro.cli.runner.TestSuiteInteractor.invoke: Assert that "My" is visible RUNNING
+16:45:47.807 [ INFO] maestro.cli.runner.TestSuiteInteractor.invoke: Assert that "My" is visible COMPLETED
+16:45:47.808 [ INFO] maestro.cli.runner.TestSuiteInteractor.invoke: Tap on "TF" RUNNING
+16:45:48.529 [ INFO] maestro.Maestro.tap-BUbHBYE: Tapping on element:  UiElement(treeNode=TreeNode(attributes={text=TF, accessibilityText=, hintText=, ignoreBoundsFiltering=false, resource-id=, clickable=false, bounds=[971,231][1015,284], enabled=true, focused=false, checked=false, scrollable=false, selected=false, class=android.widget.TextView}, children=[], clickable=false, enabled=true, focused=false, checked=false, selected=false), bounds=Bounds(x=971, y=231, width=44, height=53))
+16:45:49.257 [ INFO] maestro.drivers.AndroidDriver.close: [Done] close port forwarder
+16:45:49.257 [ INFO] maestro.drivers.AndroidDriver.close: [Start] Remove host port from port forwarder map
+16:45:49.257 [ INFO] maestro.drivers.AndroidDriver.close: [Done] Remove host port from port forwarder map
+16:45:49.258 [ INFO] maestro.drivers.AndroidDriver.close: [Start] Remove host port from port to allocation map
+16:45:49.258 [ INFO] maestro.drivers.AndroidDriver.close: [Done] Remove host port from port to allocation map
+16:45:49.258 [ INFO] maestro.drivers.AndroidDriver.close: [Start] Uninstall driver from device
+16:45:49.410 [ERROR] maestro.drivers.AndroidDriver.runDeviceCall: Received UNAVAILABLE status with message: UNAVAILABLE: Network closed for unknown reason while doing android device call
+io.grpc.StatusRuntimeException: UNAVAILABLE: Network closed for unknown reason
+	at io.grpc.stub.ClientCalls.toStatusRuntimeException(ClientCalls.java:275)
+	at io.grpc.stub.ClientCalls.getUnchecked(ClientCalls.java:256)
+	at io.grpc.stub.ClientCalls.blockingUnaryCall(ClientCalls.java:169)
+	at maestro_android.MaestroDriverGrpc$MaestroDriverBlockingStub.isWindowUpdating(MaestroDriverGrpc.java:683)
+	at maestro.drivers.AndroidDriver$waitForWindowToSettle$1.invoke(AndroidDriver.kt:744)
+	at maestro.drivers.AndroidDriver$waitForWindowToSettle$1.invoke(AndroidDriver.kt:743)
+	at maestro.drivers.AndroidDriver.runDeviceCall(AndroidDriver.kt:1219)
+	at maestro.drivers.AndroidDriver.waitForWindowToSettle-6OQmXwk(AndroidDriver.kt:743)
+	at maestro.drivers.AndroidDriver.access$waitForWindowToSettle-6OQmXwk(AndroidDriver.kt:64)
+	at maestro.drivers.AndroidDriver$waitForAppToSettle$1.invoke-prqvCes(AndroidDriver.kt:728)
+	at maestro.drivers.AndroidDriver$waitForAppToSettle$1.invoke(AndroidDriver.kt:726)
+	at maestro.utils.Metrics.measured(Metrics.kt:48)
+	at maestro.drivers.AndroidDriver.waitForAppToSettle-5RpGHs4(AndroidDriver.kt:726)
+	at maestro.Maestro.waitForAppToSettle-5RpGHs4(Maestro.kt:476)
+	at maestro.Maestro.tap-BUbHBYE(Maestro.kt:186)
+	at maestro.orchestra.Orchestra.tapOnElement(Orchestra.kt:954)
+	at maestro.orchestra.Orchestra.executeCommand(Orchestra.kt:283)
+	at maestro.orchestra.Orchestra.executeCommands(Orchestra.kt:212)
+	at maestro.orchestra.Orchestra.runFlow(Orchestra.kt:143)
+	at maestro.cli.runner.TestSuiteInteractor.runFlow(TestSuiteInteractor.kt:237)
+	at maestro.cli.runner.TestSuiteInteractor.runTestSuite(TestSuiteInteractor.kt:95)
+	at maestro.cli.command.TestCommand.runMultipleFlows(TestCommand.kt:433)
+	at maestro.cli.command.TestCommand.access$runMultipleFlows(TestCommand.kt:65)
+	at maestro.cli.command.TestCommand$runShardSuite$1.invoke(TestCommand.kt:364)
+	at maestro.cli.command.TestCommand$runShardSuite$1.invoke(TestCommand.kt:341)
+	at maestro.cli.session.MaestroSessionManager.newSession(MaestroSessionManager.kt:126)
+	at maestro.cli.session.MaestroSessionManager.newSession$default(MaestroSessionManager.kt:63)
+	at maestro.cli.command.TestCommand.runShardSuite(TestCommand.kt:341)
+	at maestro.cli.command.TestCommand.access$runShardSuite(TestCommand.kt:65)
+	at maestro.cli.command.TestCommand$handleSessions$1$results$1$1.invokeSuspend(TestCommand.kt:308)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:104)
+	at kotlinx.coroutines.internal.LimitedDispatcher$Worker.run(LimitedDispatcher.kt:111)
+	at kotlinx.coroutines.scheduling.TaskImpl.run(Tasks.kt:99)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:585)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.executeTask(CoroutineScheduler.kt:802)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker(CoroutineScheduler.kt:706)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:693)
+16:45:49.411 [ERROR] maestro.orchestra.Orchestra.executeCommands: [Command execution] CommandFailed: UNAVAILABLE: Network closed for unknown reason
+16:45:49.411 [ INFO] maestro.cli.runner.TestSuiteInteractor.invoke: Tap on "TF" FAILED
+16:45:49.413 [ INFO] maestro.Maestro.takeScreenshot: Taking screenshot
+16:45:49.413 [TRACE] maestro.utils.ScreenshotUtils.takeScreenshot: Taking screenshot to output sink
+16:45:49.418 [ERROR] maestro.drivers.AndroidDriver.runDeviceCall: Not able to reach the gRPC server while doing android device call
+16:45:49.618 [ INFO] maestro.drivers.AndroidDriver.close: [Done] Uninstall driver from device
+16:45:49.618 [ INFO] maestro.drivers.AndroidDriver.close: [Start] Close instrumentation session
+16:45:49.618 [ INFO] maestro.drivers.AndroidDriver.close: [Done] Close instrumentation session
+16:45:49.618 [ INFO] maestro.drivers.AndroidDriver.close: [Start] Shutdown GRPC channel
+16:45:49.619 [ INFO] maestro.drivers.AndroidDriver.close: [Done] Shutdown GRPC channel

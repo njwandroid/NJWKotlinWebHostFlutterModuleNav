@@ -1,0 +1,53 @@
+appId: com.neiljaywarner.myflutternavbarapplication
+---
+# Flutter Hello World Integration Test
+# This test verifies the "TF" button launches Flutter module with "Hello World" text
+
+# Launch the Android host app
+- launchApp
+
+# Wait for the app to initialize
+- waitForAnimationToEnd
+
+# Take screenshot of initial Android app state
+- takeScreenshot: android_initial_state
+
+# Verify the Android app launched by checking for bottom navigation
+- assertVisible:
+    text: "My"
+
+# Look for the "TF" button in the app bar/menu
+# Try tapping the overflow menu first (three dots) if TF button not immediately visible
+- tapOn:
+    text: "TF"
+
+# Wait for Flutter activity to launch
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Take screenshot after tapping TF button
+- takeScreenshot: flutter_launched_state
+
+# Verify Flutter animated text is visible
+- assertVisible:
+    text: "THIS IS IN FLUTTER"
+
+# Verify Flutter app bar is present
+- assertVisible:
+    text: "Flutter View"
+
+# Take final screenshot for documentation
+- takeScreenshot: flutter_hello_world_success
+
+# Go back to Android app (test navigation back)
+- pressKey: Back
+
+# Wait for return to Android app
+- waitForAnimationToEnd
+
+# Verify we're back in the Android app
+- assertVisible:
+    text: "My"
+
+# Take screenshot of return to Android app
+- takeScreenshot: back_to_android_success

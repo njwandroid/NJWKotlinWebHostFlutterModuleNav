@@ -1,0 +1,12 @@
+I need to set up the Kotlin side of a JNIgen demo for my Flutter app. I have about 30 minutes to create a simple Kotlin API function that will later be called from Flutter using JNIgen.
+
+Please help me with the following:
+
+1. Create a simple Kotlin file that contains a basic function to demonstrate JNIgen integration. 
+2. The function should be something simple like a greeting function: `fun greet(name: String): String { return "Hello, $name from Kotlin!" }` 
+3. Include any necessary annotations or setup required by JNIgen.
+4. Add proper documentation comments to the function.
+5. Explain where in the Android project structure this file should be placed.
+6. Mention any configurations or dependencies I might need to ensure JNIgen works properly.
+
+I want this to be a very clean, simple example that will work reliably for a demo. The focus is on getting the Kotlin side correctly set up in this 30-minute window. Tomorrow I'll handle the Dart/Flutter side of the integration.

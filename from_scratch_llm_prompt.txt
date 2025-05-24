@@ -1,0 +1,76 @@
+================================================================================
+                        NEW SESSION LLM PROMPT - UPDATED
+================================================================================
+
+**CONTEXT**: 
+I'm working on a Flutter module integration into an Android host application. The Android app builds and installs successfully, but the Flutter module is not launching properly when the "TF" button is tapped. 
+
+**CURRENT STATE**:
+- Android host app: Jetpack Compose app with bottom navigation and "TF" button in TopAppBar
+- Flutter module: Located at ../njw_flutter_navigation_demo/ with animated "THIS IS IN FLUTTER" text
+- Build status: SUCCESS - app installs on device 48050DLAQ0091E (Pixel 9)
+- Issue: TF button doesn't launch Flutter screen - Maestro test fails on Flutter assertion
+
+**KEY FINDING - CRITICAL ISSUE IDENTIFIED**:
+🚨 **AndroidManifest.xml is missing FlutterActivity registration!** 
+The current manifest only has MainActivity but NO FlutterActivity entry. This is why FlutterActivity.createDefaultIntent(context) fails silently.
+
+**FILES INVOLVED**:
+- MainActivity.kt: Contains TF button with FlutterActivity.createDefaultIntent(context) + logging
+- ../njw_flutter_navigation_demo/lib/main.dart: Flutter module with animated demo content  
+- maestro/flows/flutter_hello_world.yaml: Test that verifies Flutter integration
+- AndroidManifest.xml: **MISSING FlutterActivity registration** (root cause)
+
+**PROBLEM DIAGNOSIS**:
+The Maestro test sequence:
+1. ✅ Launches Android app successfully  
+2. ✅ Taps "TF" button successfully (logging confirms button pressed)
+3. ❌ Cannot find "THIS IS IN FLUTTER" text (Flutter screen never appears)
+4. ❌ Cannot find "Flutter View" text (Flutter activity never launches)
+
+**ROOT CAUSE**: 
+FlutterActivity is not registered in AndroidManifest.xml, so the Intent fails silently without any visible error to the user.
+
+**DEBUGGING DONE**:
+- Added comprehensive logging to MainActivity TF button click handler
+- Verified app builds and installs without errors  
+- Simple hello_world.yaml test passes (app launches fine)
+- Flutter module has correct animated content
+- ✅ **IDENTIFIED: AndroidManifest.xml missing FlutterActivity entry**
+
+**TECHNICAL DETAILS**:
+- Package: com.neiljaywarner.myflutternavbarapplication
+- Flutter module: njw_flutter_navigation_demo 
+- Device: 48050DLAQ0091E (Pixel 9 - Android 15)
+- Build tool: ./gradlew installDebug (works)
+- Test tool: maestro test (hello_world passes, flutter_hello_world fails)
+
+**IMMEDIATE FIX NEEDED**:
+Add FlutterActivity to AndroidManifest.xml:
+```xml
+<activity
+    android:name="io.flutter.embedding.android.FlutterActivity"
+    android:exported="false"
+    android:launchMode="singleTop"
+    android:theme="@style/LaunchTheme" />
+```
+
+**WHAT I NEED**:
+1. Fix AndroidManifest.xml to register FlutterActivity properly
+2. Verify Flutter screen launches when TF button is pressed
+3. Confirm animated "THIS IS IN FLUTTER" text is visible on device
+4. Ensure Maestro test passes with Flutter assertions
+
+**SUCCESS CRITERIA**:
+- TF button launches Flutter screen with animated red "THIS IS IN FLUTTER" text
+- User can navigate back to Android app 
+- Maestro test maestro/flows/flutter_hello_world.yaml passes completely
+- Manual verification on physical device confirms integration works
+
+**REFERENCE**:
+Previous working implementation: https://github.com/njwandroid/NJWKotlinWebHostFlutterModuleNav/pull/6
+AI interactions log has detailed troubleshooting history in 5_ai_interactions_log.md
+
+**URGENT**: Focus on AndroidManifest.xml fix first - this is likely the complete solution to the problem.
+
+================================================================================
