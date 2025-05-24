@@ -24,6 +24,10 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".BillDetailActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MyFlutterNavBarApplication" />
+        <activity
             android:name="io.flutter.embedding.android.FlutterActivity"
             android:exported="false"
             android:launchMode="singleTop"

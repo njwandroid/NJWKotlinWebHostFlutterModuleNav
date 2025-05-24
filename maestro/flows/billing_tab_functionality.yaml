@@ -1,0 +1,105 @@
+appId: com.neiljaywarner.myflutternavbarapplication
+---
+# Billing Tab Functionality Test
+# This test verifies:
+# 1. Billing tab navigation to Flutter view
+# 2. Bill list display in Flutter
+# 3. Navigation from Flutter to Kotlin bill detail
+# 4. Deep linking to bill details
+# 5. Proper backstack behavior
+
+# Launch the app
+- launchApp
+
+# Wait for the app to initialize
+- waitForAnimationToEnd
+
+# Take initial screenshot
+- takeScreenshot: billing_test_initial
+
+# Navigate to Billing tab
+- tapOn:
+    text: "Billing"
+
+# Verify we're on billing tab (currently just shows "Billing" text)
+- assertVisible:
+    text: "Billing"
+
+# Now tap on the "TF" (To Flutter) button to launch Flutter billing view
+- tapOn:
+    text: "TF"
+
+# Wait for Flutter app to load
+- waitForAnimationToEnd
+
+# Verify Flutter billing view is displayed
+- assertVisible:
+    text: "Bills List"
+
+# Take screenshot of Flutter bills list
+- takeScreenshot: billing_flutter_list
+
+# Verify bill items are displayed
+- assertVisible:
+    text: "Electric Bill - $120.50"
+
+- assertVisible:
+    text: "Water Bill - $45.25"
+
+- assertVisible:
+    text: "Internet Bill - $89.99"
+
+# Tap on the first bill to navigate to Kotlin detail page
+- tapOn:
+    text: "Electric Bill - $120.50"
+
+# Wait for navigation to complete
+- waitForAnimationToEnd
+
+# Verify we're now in the Kotlin bill detail page
+- assertVisible:
+    text: "Bill Detail"
+
+- assertVisible:
+    text: "Electric Bill"
+
+- assertVisible:
+    text: "Amount: $120.50"
+
+- assertVisible:
+    text: "Due Date: Jan 15, 2025"
+
+# Take screenshot of bill detail page
+- takeScreenshot: billing_detail_kotlin
+
+# Test back navigation - press back button
+- pressKey: Back
+
+# Wait for navigation back to Flutter
+- waitForAnimationToEnd
+
+# Verify we're back in Flutter bills list
+- assertVisible:
+    text: "Bills List"
+
+# Take screenshot after back navigation
+- takeScreenshot: billing_back_to_flutter
+
+# Test deep linking by using a deep link intent
+- openLink: "myflutterapp://billing/detail?id=water_bill"
+
+# Wait for deep link navigation
+- waitForAnimationToEnd
+
+# Verify deep link worked and we're on water bill detail
+- assertVisible:
+    text: "Bill Detail"
+
+- assertVisible:
+    text: "Water Bill"
+
+- assertVisible:
+    text: "Amount: $45.25"
+
+# Take final screenshot
+- takeScreenshot: billing_deep_link_success

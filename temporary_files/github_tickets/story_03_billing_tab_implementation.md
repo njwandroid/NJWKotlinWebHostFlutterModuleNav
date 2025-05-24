@@ -5,9 +5,9 @@
 **Create a Flutter-based Billing tab that navigates to a native Kotlin detail page.**
 
 * **Key Features**:
-   * Flutter implementation of bill list
+    * Billing tab directly shows Flutter bill list (no intermediate button)
    * Navigation from Flutter view to **Kotlin detail page**
-   * **Deep linking** support for direct access to bill details
+  * **Deep linking** support for direct access to bill details (stretch goal)
 * **Technical Focus**:
    * Flutter → Kotlin navigation with proper backstack handling
    * State preservation when returning to Flutter list
@@ -15,32 +15,33 @@
 
 ## Description
 
-Implement the "Billing" tab as a Flutter view with navigation to a Kotlin detail page, demonstrating
-Flutter-to-Kotlin navigation with deep linking capabilities.
+Implement the "Billing" tab to directly show a Flutter bills list with navigation to a Kotlin detail
+page, demonstrating
+Flutter-to-Kotlin navigation with proper UX flow.
 
 ## Requirements
 
-- Implement Billing tab as a Flutter view
+- Billing tab directly displays Flutter bills list (no intermediate navigation)
 - Create navigation to a Kotlin Item Detail Page for a bill
-- Implement deep linking capabilities to the bill detail page
+- Implement deep linking capabilities to the bill detail page (stretch goal)
 - Configure proper backstack behavior when navigating between Flutter and Kotlin
 
 ## Technical Tasks
 
-- [ ] Create the main Billing tab UI in Flutter
-- [ ] Implement list of bills with selectable items
+- [ ] Modify Billing tab to directly launch Flutter bills view
+- [ ] Implement list of bills with selectable items in Flutter
 - [ ] Create Kotlin bill detail page
 - [ ] Implement navigation from Flutter billing list to Kotlin bill detail
-- [ ] Set up deep link handling for direct navigation to bill detail
+- [ ] Set up deep link handling for direct navigation to bill detail (stretch goal)
 - [ ] Configure proper backstack behavior when returning from bill detail
 - [ ] Add appropriate transition animations between views
 - [ ] Implement state preservation when returning to billing list
 
 ## Acceptance Criteria
 
-- [ ] Billing tab displays correctly with list of bills
+- [ ] Billing tab directly displays Flutter bills list (no extra button press)
 - [ ] Selecting a bill navigates to a Kotlin detail view
-- [ ] Deep links correctly navigate directly to bill detail page
+- [ ] Deep links correctly navigate directly to bill detail page (stretch goal)
 - [ ] Back button works correctly when navigating from bill detail to billing list
 - [ ] State is preserved when navigating back to billing list
 - [ ] No visual glitches during transitions
@@ -51,8 +52,11 @@ Flutter-to-Kotlin navigation with deep linking capabilities.
 
 ## Notes
 
-This story demonstrates Flutter-to-Kotlin navigation with deep linking support. Special attention
-should be paid to handling the backstack correctly when navigating from Flutter to Kotlin and back.
+This story demonstrates Flutter-to-Kotlin navigation with a clean UX flow. The Billing tab should
+directly show
+the Flutter bills list without requiring intermediate navigation steps. Special attention should be
+paid to
+handling the backstack correctly when navigating from Flutter to Kotlin and back.
 
 ## AI Analysis
 
@@ -75,18 +79,12 @@ should be paid to handling the backstack correctly when navigating from Flutter 
 
 This story presents several complex challenges:
 
-1. Implementing navigation from Flutter to Kotlin views requires custom platform channel
-   implementation
-2. Deep linking support requires careful coordination between Android's intent system and Flutter's
-   navigation
-3. Preserving state when navigating back to Flutter from Kotlin requires special attention
+1. Implementing direct Flutter view integration in the Billing tab
+2. Navigation from Flutter to Kotlin views requires custom platform channel implementation
+3. Deep linking support requires careful coordination between Android's intent system and Flutter's
+   navigation (stretch goal)
+4. Preserving state when navigating back to Flutter from Kotlin requires special attention
 
-The most challenging aspect will likely be setting up the deep linking infrastructure that allows
-direct navigation to a specific bill detail page. This requires:
-
-- Custom URI scheme registration in the Android manifest
-- Intent handling in the Kotlin host
-- State management to ensure the correct bill is displayed
-
-Consider using the Flutter plugin "uni_links" to help with deep link handling, but be prepared for
-custom implementation to handle the Kotlin-Flutter boundary.
+The key UX improvement is making the Billing tab directly show the Flutter bills list, eliminating
+unnecessary
+navigation steps and providing a smoother user experience.

@@ -1,5 +1,6 @@
 package com.neiljaywarner.myflutternavbarapplication
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -16,6 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -25,16 +27,52 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import com.neiljaywarner.myflutternavbarapplication.ui.theme.MyFlutterNavBarApplicationTheme
-import io.flutter.embedding.android.FlutterActivity
+
 class MainActivity : ComponentActivity() {
+    companion object {
+        private const val CHANNEL = "com.neiljaywarner.myflutternavbarapplication/navigation"
+    }
+    
+    private lateinit var flutterEngine: FlutterEngine
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        
+        // Initialize Flutter engine for platform channel
+        flutterEngine = FlutterEngine(this)
+        
+        // Set up method channel to handle navigation from Flutter
+        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL).setMethodCallHandler { call, result ->
+            if (call.method == "navigateToBillDetail") {
+                val billId = call.argument<String>("billId")
+                val title = call.argument<String>("title")
+                val amount = call.argument<String>("amount")
+                val dueDate = call.argument<String>("dueDate")
+                
+                val intent = Intent(this, BillDetailActivity::class.java)
+                intent.putExtra("billId", billId)
+                intent.putExtra("title", title)
+                intent.putExtra("amount", amount)
+                intent.putExtra("dueDate", dueDate)
+                startActivity(intent)
+                
+                result.success(null)
+            } else {
+                result.notImplemented()
+            }
+        }
+        
         setContent {
             MyFlutterNavBarApplicationTheme {
                 MainScreen()
             }
         }
+    }
+    
+    override fun onDestroy() {
+        super.onDestroy()
+        flutterEngine.destroy()
     }
 }
 
@@ -45,6 +83,15 @@ fun MainScreen() {
     val context = LocalContext.current
 
     val tabs = listOf("My", "Billing", "Dashboard", "Items", "Settings")
+
+    // Launch Flutter activity when Billing tab is selected
+    LaunchedEffect(selectedTabIndex) {
+        if (selectedTabIndex == 1) { // Billing tab
+            val intent = FlutterActivity.createDefaultIntent(context)
+            context.startActivity(intent)
+            selectedTabIndex = 0 // Reset to My tab
+        }
+    }
 
     Scaffold(
         topBar = {

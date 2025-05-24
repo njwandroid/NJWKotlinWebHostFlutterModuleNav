@@ -1,0 +1,115 @@
+# LLM Prompt: Continue Story 03 - Billing Tab Implementation
+
+## Current Context & Session State
+
+**Session Started**: 9:01pm  
+**Story**: Implement Billing Tab with Flutter-to-Kotlin Navigation  
+**Approach**: Test-Driven Development with Maestro tests first  
+**Current Status**: Flutter integration issues - need to set up hybrid app properly  
+
+## Project Structure
+
+- **Main Android App**: `/Users/neil/AndroidStudioProjects/MyFlutterNavBarApplication`
+- **Flutter Module**: `/Users/neil/AndroidStudioProjects/njw_flutter_navigation_demo`
+- **Device**: Physical device `48050DLAQ0091E` (Pixel 9 - 15)
+- **Architecture**: Hybrid Android + Flutter app with bottom navigation
+
+## Story Requirements (REVISED)
+
+### Core Functionality (Phase 1 - Must be 100% complete first):
+- ✨ **Billing Tab Direct Navigation**: Billing tab directly shows Flutter bills list (NO TF button)
+- 🔗 **Flutter→Kotlin Navigation**: Bills list → native Kotlin detail page via platform channel
+- ↩️ **Backstack Management**: Proper back button behavior
+- 💾 **State Preservation**: Maintain state when returning to Flutter list
+
+### Stretch Goal (Phase 2 - Only after core 100% complete):
+- 🌐 **Deep Linking**: URI scheme navigation to bill details
+
+## Current Implementation Status
+
+### ✅ Completed:
+- Created `maestro/flows/billing_tab_core.yaml` - failing test for core functionality
+- Modified `../njw_flutter_navigation_demo/lib/main.dart` with bills list UI
+- Created `BillDetailActivity.kt` for native detail view
+- Added BillDetailActivity to AndroidManifest.xml
+- Removed spinning Flutter animation per user request
+- Updated documentation and DITL tracking
+
+### 🔄 Current Issue:
+**Flutter Integration Problem**: 
+- `settings.gradle.kts` references missing file: `../njw_flutter_navigation_demo/.android/include_flutter.groovy`
+- Build fails because Flutter Android integration not set up
+- Need to properly configure Flutter module for hybrid app
+
+### 📋 Next Steps Required:
+
+1. **Fix Flutter Integration**:
+   - Run `flutter create --template=module .` in Flutter directory if needed
+   - Ensure `.android/include_flutter.groovy` exists
+   - Fix import issues in MainActivity.kt (FlutterEngine, MethodChannel, etc.)
+
+2. **Complete Platform Channel Setup**:
+   - MainActivity: Handle method channel for bill detail navigation
+   - Flutter: Platform channel communication working
+   - Test navigation from Flutter bills → Kotlin detail
+
+3. **Run TDD Cycle**:
+   - Build and install app: `./gradlew installDebug`
+   - Run failing test: `maestro test maestro/flows/billing_tab_core.yaml`
+   - Fix issues until test passes
+
+## Key Files Modified:
+
+### Flutter Bills List (`../njw_flutter_navigation_demo/lib/main.dart`):
+```dart
+// Bills list with platform channel navigation
+static const platform = MethodChannel('com.neiljaywarner.myflutternavbarapplication/navigation');
+// Sample bills: Electric ($120.50), Water ($45.25), Internet ($89.99)
+```
+
+### Kotlin Detail Activity (`BillDetailActivity.kt`):
+```kotlin
+// Receives: billId, title, amount, dueDate via Intent extras
+// Shows: Bill Detail screen with Material 3 UI
+```
+
+### Maestro Test (`maestro/flows/billing_tab_core.yaml`):
+```yaml
+# Expects: Billing tab → Flutter bills list → tap bill → Kotlin detail
+# Tests: Navigation, back button, state preservation  
+```
+
+## Critical Success Criteria:
+
+- [ ] Billing tab directly shows Flutter bills list (no extra navigation)
+- [ ] Three bills visible: Electric ($120.50), Water ($45.25), Internet ($89.99)
+- [ ] Tapping bill opens Kotlin detail with correct data
+- [ ] Back button returns to Flutter bills list with state preserved
+- [ ] All core Maestro tests pass
+
+## Project Files to Monitor:
+
+- `ditl/temporary_ditl_story_03.md` - DITL progress tracking
+- `11_ai_interactions_log.md` - Session interactions log  
+- `temporary_files/03_manual_prompts.md` - Plan adjustments
+
+## Commands to Continue:
+
+1. Check Flutter setup: `cd ../njw_flutter_navigation_demo && flutter doctor`
+2. Fix Flutter integration in hybrid app
+3. Build: `./gradlew installDebug`
+4. Test: `maestro test maestro/flows/billing_tab_core.yaml`
+
+## User Preferences:
+
+- Remove spinning Flutter animations (already done)
+- Billing tab should NOT use TF button - direct navigation
+- Deep links are stretch goal only after core 100% working
+- Use TDD approach - fix failing test first
+
+## Session Context:
+
+- Physical device connected (emulator had space issues)
+- User wants clean UX flow without extra button presses  
+- Focus on core functionality before stretch goals
+- DITL technique being used for progress tracking
