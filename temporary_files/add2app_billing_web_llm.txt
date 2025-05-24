@@ -1,0 +1,258 @@
+You are an expert Flutter web developer tasked with extending an existing Flutter add-to-app billing integration to support web deployment using Test-Driven Development (TDD) methodology. You should adapt the completed Android native list + Flutter detail pattern for web browsers while maintaining the same user experience and functionality.
+
+## 🎯 CRITICAL: Test-Driven Development Approach
+
+**You MUST write failing web-specific Maestro tests BEFORE implementing any code. This is non-negotiable.**
+
+### TDD Workflow for Web:
+1. **Red**: Write failing Maestro web tests for all functionality
+2. **Green**: Write minimum code to make tests pass
+3. **Refactor**: Improve code while keeping tests passing
+4. **Repeat**: Continue until all web features are complete
+
+## Required Failing Web Tests to Create First
+
+### Test 1: Web Navigation Test
+```yaml
+# maestro/flows/billing_web_test.yaml
+platform: web
+baseURL: http://localhost:8080
+---
+# Web bill list loads
+- launchApp:
+    url: "http://localhost:8080/bills"
+- assertVisible: "My Bills"
+- assertVisible: "Internet Service"
+- assertVisible: "$79.99"
+
+# Navigate to detail
+- tapOn: "Internet Service"
+- assertVisible: "Bill Details"
+- assertVisible: "Pay Bill"
+
+# Deep link test
+- launchApp:
+    url: "http://localhost:8080/bill/bill_001"
+- assertVisible: "Bill Details"
+- assertVisible: "Internet Service"
+```
+
+### Test 2: Responsive Design Test
+```yaml
+# maestro/flows/billing_responsive_test.yaml
+platform: web
+baseURL: http://localhost:8080
+---
+# Desktop layout
+- setViewportSize: 1920x1080
+- launchApp:
+    url: "http://localhost:8080/bills"
+- assertVisible: "Billing Dashboard"
+
+# Tablet layout
+- setViewportSize: 768x1024
+- assertVisible: "My Bills"
+
+# Mobile layout
+- setViewportSize: 375x667
+- assertVisible: "My Bills"
+```
+
+### Test 3: Payment Flow Test
+```yaml
+# maestro/flows/billing_web_payment_test.yaml
+platform: web
+baseURL: http://localhost:8080
+---
+- launchApp:
+    url: "http://localhost:8080/bills"
+- tapOn: "Internet Service"
+- tapOn: "Pay Bill"
+- assertVisible: "Payment processed successfully"
+```
+
+**All these tests must fail initially. Implementation only begins after creating failing tests.**
+
+## Project Context
+
+You are working with a completed Flutter add-to-app billing integration that has:
+- Native Kotlin app with bottom navigation and billing tab
+- RecyclerView list of bills in the native billing tab  
+- Flutter detail screens that open when tapping bill items
+- Method channel communication between native and Flutter
+- Deep link support via Android manifest
+- MockWebServer integration for realistic API responses
+
+Your task is to create a web version that replicates this functionality entirely in Flutter web using TDD methodology.
+
+## Technical Requirements
+
+### Core Web Implementation
+1. **Flutter Web Router Setup**:
+   - Use Go Router for declarative routing and deep links
+   - Support URLs like `/bills` (list) and `/bill/{billId}` (detail)
+   - Implement proper browser back/forward navigation
+   - Handle initial route based on URL
+
+2. **Responsive Bill List Screen**:
+   - Create web version of the native Kotlin bill list
+   - Adapt layout for mobile, tablet, and desktop screen sizes
+   - Use ListView for mobile, GridView for tablet, sidebar layout for desktop
+   - Maintain visual consistency with mobile app design
+
+3. **Enhanced Bill Detail Screen**:
+   - Extend existing Flutter detail screen for web optimization
+   - Add desktop-optimized layout with side panels
+   - Include additional detail information suitable for larger screens
+   - Implement web-friendly payment flow with proper feedback
+
+4. **State Management Consistency**:
+   - Use same Riverpod providers and state management patterns
+   - Adapt existing fake billing service for web deployment
+   - Add realistic network delays for web experience
+   - Handle loading states and error scenarios appropriately
+
+### Key Implementation Details
+
+**Go Router Configuration:**
+```dart
+final appRouter = GoRouter(
+  initialLocation: '/bills',
+  routes: [
+    GoRoute(path: '/bills', name: 'billList', pageBuilder: ...),
+    GoRoute(path: '/bill/:billId', name: 'billDetail', pageBuilder: ...),
+    GoRoute(path: '/', redirect: (context, state) => '/bills'),
+  ],
+);
+```
+
+**Responsive Layout Pattern:**
+```dart
+class ResponsiveLayout extends StatelessWidget {
+  final Widget mobile, tablet, desktop;
+  // Breakpoints: <600px mobile, <1200px tablet, >=1200px desktop
+}
+```
+
+**Web Navigation:**
+```dart
+// Navigate to detail
+context.go('/bill/$billId');
+
+// Navigate back to list  
+context.go('/bills');
+```
+
+**Enhanced Fake Service:**
+```dart
+class FakeBillingService {
+  // Add realistic network delays (800ms)
+  // Include additional mock data for web
+  // Simulate payment processing (1.5s delay)
+  // Add payment history and detailed descriptions
+}
+```
+
+### Progressive Web App (PWA) Features
+1. **Web Manifest**:
+   - Configure PWA manifest.json for installability
+   - Set proper app name, icons, and start URL
+   - Enable standalone display mode
+
+2. **Responsive Design**:
+   - Mobile-first approach with proper breakpoints
+   - Touch-friendly interactions for mobile web
+   - Desktop-optimized layouts with sidebar navigation
+   - Consistent Material Design 3 theming
+
+3. **Performance Optimization**:
+   - Optimize for web performance and loading times
+   - Handle network conditions gracefully
+   - Implement proper loading states and error handling
+
+## Navigation Flow Requirements
+
+1. **URL-based Navigation**: `/bills` → `/bill/bill_001` → browser back → `/bills`
+2. **Deep Link Support**: Direct access to `/bill/bill_001` should work
+3. **Browser Integration**: Back/forward buttons work correctly
+4. **Bookmarking**: URLs are bookmarkable and shareable
+
+## Responsive Design Specifications
+
+### Mobile Web (< 600px)
+- Single column layout matching mobile app
+- Touch-optimized bill cards
+- Full-width payment buttons
+- Standard mobile navigation patterns
+
+### Tablet Web (600px - 1200px)  
+- Two-column grid for bill list
+- Larger bill cards with more information
+- Side-by-side detail panels where appropriate
+
+### Desktop Web (> 1200px)
+- Sidebar navigation with dashboard-style layout
+- Multi-panel detail screen (bill info + payment panel)
+- Enhanced information density
+- Hover states and desktop interaction patterns
+
+## Testing Strategy - TDD Focused
+
+### Test Execution Order
+1. **Run web Maestro tests first** - All should fail initially
+2. **Implement minimal web code** - Make one test pass at a time
+3. **Verify no regressions** - Ensure previously passing tests still pass
+4. **Add Flutter widget tests** - Create supporting tests after integration tests pass
+5. **Full web test suite** - Run complete test suite before considering done
+
+### Integration Tests
+- Test navigation between list and detail screens
+- Verify URL routing and deep link functionality
+- Test responsive breakpoints and layout adaptation
+- Validate payment flow with mock responses
+
+### Cross-browser Testing
+- Chrome, Firefox, Safari, Edge compatibility
+- Mobile browser testing (iOS Safari, Chrome Mobile)
+- PWA installation and functionality testing
+
+## Code Quality Requirements
+
+- Follow Flutter web best practices and performance guidelines
+- Use existing project architecture and state management patterns
+- Implement proper error handling and loading states
+- Maintain visual consistency with mobile version
+- Include comprehensive documentation for web-specific features
+- Use semantic HTML and accessibility best practices
+- **Maintain failing tests first, then implementation approach throughout**
+
+## Success Criteria - TDD Validation
+
+- **All web Maestro tests pass** - Complete web functionality verified
+- **Failing tests created first** - TDD methodology properly followed for web
+- Web app loads quickly with responsive bill list
+- URL routing works correctly for all navigation scenarios
+- Responsive design adapts smoothly across all screen sizes
+- Payment functionality works with realistic feedback
+- Deep links are shareable and bookmarkable
+- PWA features enable installation and offline capabilities
+- Visual design maintains consistency with mobile app
+- Performance is acceptable on various network conditions
+
+## Deliverables
+
+1. **Failing web Maestro test suite** - Created before any web implementation
+2. Go Router configuration with proper route handling
+3. Responsive bill list screen with mobile/tablet/desktop layouts
+4. Enhanced bill detail screen optimized for web
+5. Adapted fake billing service with web-appropriate delays
+6. PWA configuration (manifest.json, service worker setup)
+7. Comprehensive integration tests for web navigation
+8. Build and deployment scripts for web hosting
+9. Documentation showing web TDD approach was followed
+
+## Critical Success Factor for Web
+
+**The entire web implementation must follow TDD principles. If you implement ANY web code before creating failing web tests, the project is considered unsuccessful regardless of final web functionality. Web tests drive the web implementation, not the other way around.**
+
+Focus on creating a seamless web experience that feels native to the browser while maintaining feature parity with the mobile add-to-app implementation. The web version should leverage the larger screen real estate effectively while remaining fully functional on mobile browsers, all developed using proper TDD methodology.

@@ -1,0 +1,245 @@
+You are an expert Flutter and Android developer tasked with integrating Flutter billing detail screens into an existing Kotlin bottom navigation app using Test-Driven Development (TDD) methodology. The billing functionality should be implemented within the existing "Billing" tab where the Kotlin native side displays a list of bills and tapping on a bill opens a Flutter detail screen.
+
+## 🎯 CRITICAL: Test-Driven Development Approach
+
+**You MUST write failing Maestro tests BEFORE implementing any code. This is non-negotiable.**
+
+### TDD Workflow:
+1. **Red**: Write failing Maestro tests for all functionality
+2. **Green**: Write minimum code to make tests pass
+3. **Refactor**: Improve code while keeping tests passing
+4. **Repeat**: Continue until all features are complete
+
+## Required Failing Tests to Create First
+
+### Test 1: Maestro Integration Test
+```yaml
+# maestro/flows/billing_integration_test.yaml
+appId: com.example.myflutternavbarapplication
+---
+# Billing tab loads with mock bills
+- launchApp
+- tapOn: "Billing"
+- assertVisible: "Internet Service"
+- assertVisible: "$79.99"
+- assertVisible: "Electric Bill"
+
+# Navigate to Flutter detail
+- tapOn: "Internet Service"
+- assertVisible: "Bill Details"
+- assertVisible: "Pay Bill"
+- assertVisible: "Monthly internet bill"
+
+# Back navigation
+- tapOn: id:"back_button"
+- assertVisible: "Billing"
+```
+
+### Test 2: Deep Link Test
+```yaml
+# maestro/flows/billing_deep_link_test.yaml
+appId: com.example.myflutternavbarapplication
+---
+- launchApp:
+    url: "myapp://bill/bill_001"
+- assertVisible: "Bill Details"
+- assertVisible: "Internet Service"
+- assertVisible: "Pay Bill"
+```
+
+### Test 3: Payment Flow Test
+```yaml
+# maestro/flows/billing_payment_test.yaml
+appId: com.example.myflutternavbarapplication
+---
+- launchApp
+- tapOn: "Billing"
+- tapOn: "Internet Service"
+- tapOn: "Pay Bill"
+- assertVisible: "Payment processed successfully"
+```
+
+**All these tests must fail initially. Only after creating failing tests should you begin implementation.**
+
+## Project Context
+
+You are working with an existing Kotlin app that has bottom navigation with a billing tab. Your task is to enhance this tab by:
+- Keeping the billing list view in native Kotlin (RecyclerView)
+- Adding Flutter detail screens that open when tapping bill items
+- Implementing proper backstack navigation between native and Flutter
+- Supporting deep links to specific bill details via Android manifest
+
+## Technical Requirements
+
+### Android Side Implementation
+1. **Modify Existing BillingFragment**:
+   - Update existing billing fragment to display bills in RecyclerView
+   - Implement click handler to navigate to Flutter detail screen
+   - Use MockWebServer for realistic API responses during development
+
+2. **Create FlutterBillDetailActivity**:
+   - Extend FlutterActivity to host Flutter detail screens
+   - Implement method channel communication to pass bill data
+   - Handle deep link routing to specific bill details
+   - Support proper back navigation to native list
+
+3. **MockWebServer Integration**:
+   - Set up MockBillingServer class for testing bill API endpoints
+   - Mock endpoints: GET /bills (list), POST /pay/{billId} (payment)
+   - Provide realistic response data for development and testing
+
+4. **Deep Link Configuration**:
+   - Configure AndroidManifest.xml for `myapp://bill/{billId}` deep links
+   - Ensure deep links properly route to Flutter detail screens
+   - Test deep link functionality with ADB commands
+
+### Flutter Side Implementation
+1. **Bill Detail Screen**:
+   - Create responsive bill detail UI with payment options
+   - Implement proper loading states and error handling
+   - Use Riverpod for state management
+   - Handle method channel communication with Android
+
+2. **Method Channel Integration**:
+   - Create MethodChannelHandler for communication with native side
+   - Handle bill data retrieval, payment processing, and navigation
+   - Implement proper error handling for method channel calls
+
+3. **Fake Service Pattern**:
+   - Implement FakeBillingService following fake_marvel.dart pattern
+   - Provide realistic mock data for development and testing
+   - Use Riverpod providers for dependency injection
+
+## Implementation Strategy - TDD Focus
+
+### Phase 1: Failing Tests (MANDATORY FIRST STEP)
+1. Create all Maestro test flows that should pass when complete
+2. Run tests to verify they all fail appropriately
+3. Document expected failure points and reasons
+4. Create unit test stubs that also fail initially
+
+### Phase 2: Minimum Viable Implementation
+1. Create basic Kotlin BillingFragment that makes list test pass
+2. Add basic Flutter detail screen that makes navigation test pass
+3. Implement method channel to make data passing test pass
+4. Add deep link configuration to make deep link test pass
+
+### Phase 3: Test-Driven Refinement
+1. Add payment functionality to make payment test pass
+2. Implement proper error handling for edge case tests
+3. Add back navigation logic to make navigation test pass completely
+4. Refactor code while maintaining passing tests
+
+### Phase 4: Integration and Polish
+1. Run full Maestro test suite to ensure no regressions
+2. Add comprehensive unit tests for both platforms
+3. Optimize performance while maintaining test coverage
+4. Document any test cases that revealed implementation issues
+
+## Key Implementation Details
+
+**Android Method Channel Setup:**
+```kotlin
+private val billingMethodChannel = MethodChannel(
+    flutterEngine.dartExecutor.binaryMessenger,
+    "com.example.billing/channel"
+)
+
+billingMethodChannel.setMethodCallHandler { call, result ->
+    when (call.method) {
+        "getBillData" -> // Return bill data from intent extras
+        "payBill" -> // Process payment via MockWebServer
+        "navigateBack" -> // Close Flutter activity
+    }
+}
+```
+
+**Flutter Method Channel Handler:**
+```dart
+class MethodChannelHandler {
+  static const platform = MethodChannel('com.example.billing/channel');
+  
+  static Future<Bill?> getBillData() async { /* Implementation */ }
+  static Future<void> payBill(String billId) async { /* Implementation */ }
+  static Future<void> navigateBack() async { /* Implementation */ }
+}
+```
+
+**Deep Link Intent Filter:**
+```xml
+<activity android:name=".flutter.FlutterBillDetailActivity">
+    <intent-filter android:autoVerify="true">
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <data android:scheme="myapp" android:host="bill" />
+    </intent-filter>
+</activity>
+```
+
+## Navigation Flow Requirements
+
+1. **Normal Flow**: Billing tab → Bill list (RecyclerView) → Tap bill → Flutter detail screen → Back button → Native list
+2. **Deep Link Flow**: External link `myapp://bill/bill_001` → Opens Flutter detail directly → Back button → Native list or closes app
+3. **Backstack Management**: Ensure proper Android backstack behavior in both scenarios
+
+## Testing Strategy - TDD Focused
+
+### Test Execution Order
+1. **Run Maestro tests first** - All should fail initially
+2. **Implement minimal code** - Make one test pass at a time
+3. **Verify no regressions** - Ensure previously passing tests still pass
+4. **Add unit tests** - Create supporting unit tests after integration tests pass
+5. **Full test suite** - Run complete test suite before considering done
+
+### Android Tests
+- Unit tests for MockBillingServer and BillingService
+- Integration tests for navigation between native list and Flutter detail
+- Deep link testing using ADB shell commands
+- Method channel communication testing
+
+### Flutter Tests
+- Widget tests for bill detail screen UI
+- Unit tests for fake billing service
+- Method channel mock testing
+- State management testing with Riverpod
+
+## Success Criteria - TDD Validation
+
+- **All Maestro tests pass** - Complete end-to-end functionality verified
+- **Failing tests created first** - TDD methodology properly followed
+- Native billing list displays mock bill data from MockWebServer
+- Tapping bill items smoothly navigates to Flutter detail screens
+- Flutter screens receive bill data via method channel
+- Payment functionality works with proper success/error feedback
+- Deep links correctly open specific bill details
+- Back navigation works properly in all scenarios
+- Comprehensive test coverage for both platforms
+- Clean, maintainable code following platform best practices
+
+## Code Quality Requirements
+
+- Follow existing project architecture and naming conventions
+- Use proper error handling and loading states
+- Implement type-safe method channel communication
+- Follow Flutter add-to-app integration best practices
+- Use dependency injection and clean architecture patterns
+- Include comprehensive documentation and code comments
+- **Maintain failing tests first, then implementation approach throughout**
+
+## Deliverables
+
+1. **Failing Maestro test suite** - Created before any implementation
+2. Updated BillingFragment with RecyclerView implementation
+3. FlutterBillDetailActivity with method channel setup
+4. Flutter billing module with detail screens and fake services
+5. MockWebServer implementation for realistic API responses
+6. Deep link configuration and testing
+7. Comprehensive test suite for both platforms
+8. Documentation showing TDD approach was followed
+
+## Critical Success Factor
+
+**The entire implementation must follow TDD principles. If you implement ANY code before creating failing tests, the project is considered unsuccessful regardless of final functionality. Tests drive the implementation, not the other way around.**
+
+Focus on creating a seamless integration that feels natural to users while maintaining clean separation between native and Flutter code. The implementation should serve as a reference for real-world native list + Flutter detail patterns in add-to-app scenarios, with the added benefit of demonstrating proper TDD methodology in cross-platform development.

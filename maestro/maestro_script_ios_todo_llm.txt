@@ -1,0 +1,193 @@
+You are an expert iOS and cross-platform mobile developer tasked with extending the existing `robust_run_maestro_test.sh` script to support iOS simulators alongside Android devices. This will create a unified testing solution that can handle both platforms seamlessly.
+
+## Project Context
+
+You have a working robust Maestro test runner script that currently supports:
+- Multiple Android device/emulator detection and selection
+- Interactive device selection menus with detailed device information
+- Enhanced error handling and verbose logging
+- Automatic emulator starting when no devices are available
+- Platform-specific app building and installation
+
+Your task is to extend this script to also support iOS simulators while maintaining all existing Android functionality.
+
+## Technical Requirements
+
+### Core iOS Integration
+
+1. **iOS Simulator Detection**:
+   - Use `xcrun simctl list devices --json` to detect booted simulators
+   - Extract simulator UDID, name, iOS version, and device type
+   - Handle simulator states (Booted, Shutdown, Creating, etc.)
+   - Provide detailed simulator information in device selection menu
+
+2. **Unified Device Selection**:
+   - Combine Android devices and iOS simulators in single selection menu
+   - Display platform icons (🤖 for Android, 🍎 for iOS)
+   - Show device type, name, and OS version for both platforms
+   - Maintain existing selection logic (--first, --device, interactive)
+
+3. **iOS Simulator Management**:
+   - Auto-start iOS simulators when no devices are available
+   - Handle simulator selection from available (but not booted) simulators
+   - Wait for simulator boot completion before proceeding
+   - Graceful error handling for simulator startup failures
+
+4. **iOS App Building and Installation**:
+   - Use `flutter build ios --simulator` for iOS app builds
+   - Find and install .app bundles using `xcrun simctl install`
+   - Handle iOS-specific build paths and app bundle detection
+   - Support clean builds with `flutter clean` for iOS projects
+
+5. **Platform-Aware Test Execution**:
+   - Set appropriate environment variables for each platform
+   - Use correct Maestro device targeting for iOS vs Android
+   - Maintain video recording and AI report generation for both platforms
+
+### Command Line Interface Extensions
+
+Add new iOS-specific options:
+- `--ios-first`: Prefer iOS simulators over Android devices
+- `--platform android|ios`: Target specific platform only
+- `--simulator <udid>`: Target specific iOS simulator by UDID
+
+### Prerequisites and Dependencies
+
+Ensure the script properly detects and handles:
+- Xcode installation and command line tools
+- iOS simulator availability
+- Flutter iOS development setup
+- jq dependency for JSON parsing
+- macOS-specific paths and permissions
+
+## Implementation Strategy
+
+### Phase 1: Detection and Setup
+1. Add iOS simulator detection functions
+2. Implement unified device discovery
+3. Create cross-platform device information display
+4. Handle missing dependencies gracefully
+
+### Phase 2: Device Management
+1. Extend device selection logic for both platforms
+2. Add iOS simulator startup functionality
+3. Implement platform-specific environment variable setup
+4. Add iOS preference options
+
+### Phase 3: Build and Test Integration
+1. Add iOS app building functions
+2. Implement iOS app installation
+3. Create platform-aware test execution
+4. Maintain video recording for both platforms
+
+### Phase 4: Error Handling and Polish
+1. Add comprehensive iOS-specific error handling
+2. Implement graceful degradation when iOS unavailable
+3. Update help documentation and usage examples
+4. Add verbose logging for iOS operations
+
+## Key Implementation Details
+
+### iOS Simulator Detection
+```bash
+# Core function to implement
+get_ios_device_info() {
+    # Extract simulator info using xcrun simctl and jq
+    # Return format: "device_type|device_name|ios_version"
+}
+
+check_ios_simulators() {
+    # Find booted simulators
+    # Populate IOS_DEVICE_IDS and IOS_DEVICE_INFO arrays
+    # Handle case where no simulators are booted
+}
+```
+
+### Unified Device Selection
+```bash
+check_and_select_unified_device() {
+    # Combine Android and iOS devices
+    # Display unified menu with platform indicators
+    # Handle platform-specific selection preferences
+    # Set appropriate environment variables
+}
+```
+
+### iOS Simulator Management
+```bash
+start_ios_simulator() {
+    # List available simulators
+    # Handle simulator selection (auto or interactive)
+    # Boot simulator and wait for ready state
+    # Error handling for boot failures
+}
+```
+
+### Platform-Aware Execution
+```bash
+run_maestro_test_unified() {
+    # Detect target platform
+    # Use appropriate device targeting
+    # Handle platform-specific test execution
+    # Maintain consistent output formatting
+}
+```
+
+## Error Handling Requirements
+
+### iOS-Specific Error Scenarios
+1. **Xcode Not Installed**: Detect and provide installation guidance
+2. **No Simulators Available**: Guide user to create simulators in Xcode
+3. **Simulator Boot Failures**: Handle timeout and permission issues
+4. **iOS Build Failures**: Detect Flutter iOS setup problems
+5. **App Installation Failures**: Handle simulator app installation issues
+
+### Graceful Degradation
+- Continue with Android-only functionality if iOS setup incomplete
+- Provide informative error messages for iOS-specific failures
+- Allow platform-specific targeting to skip unavailable platforms
+
+## Testing and Validation
+
+### Test Scenarios to Validate
+1. **Android-only environment**: Script works as before
+2. **iOS-only environment**: Script detects and uses iOS simulators
+3. **Mixed environment**: Both platforms available, proper selection
+4. **No devices**: Auto-starts appropriate simulator based on preferences
+5. **Specific targeting**: --device, --simulator, --platform options work
+6. **Error conditions**: Graceful handling of missing dependencies
+
+### Cross-Platform Test Flows
+Create test flows that work on both platforms:
+- Use generic UI element selectors where possible
+- Handle platform-specific UI differences gracefully
+- Test navigation patterns that work across platforms
+
+## Code Quality Requirements
+
+- Maintain existing script structure and patterns
+- Use consistent error handling and logging patterns
+- Follow bash best practices for cross-platform compatibility
+- Add comprehensive comments for iOS-specific functionality
+- Ensure backward compatibility with existing Android functionality
+
+## Success Criteria
+
+- Script detects and lists both Android devices and iOS simulators
+- Interactive device selection works seamlessly across platforms
+- iOS simulators can be auto-started when needed
+- iOS app building and installation works correctly
+- Maestro tests execute successfully on both platforms
+- Video recording and AI reports work for both platforms
+- All existing Android functionality remains intact
+- Error handling provides clear guidance for iOS setup issues
+
+## Deliverables
+
+1. Enhanced `robust_run_maestro_test.sh` with full iOS support
+2. Updated help documentation and usage examples
+3. iOS-specific error handling and troubleshooting guidance
+4. Cross-platform test flow examples
+5. Comprehensive testing across various device/simulator configurations
+
+Focus on creating a seamless cross-platform experience while maintaining the robustness and user-friendliness of the existing Android-focused script. The enhanced script should feel natural to use regardless of whether developers are testing on Android, iOS, or both platforms.

@@ -8,6 +8,35 @@ focus on AI interactions tracking and project automation.
 Our simplified Firebender configuration focuses on AI interactions tracking rather than complex
 automation rules. This approach provides better maintainability and clearer debugging capabilities.
 
+## Privacy and Git Management Rules
+
+### [NOGIT] Tag Rule
+
+**Rule**: Any file, prompt, or content containing the `[NOGIT]` tag must never be committed to git.
+
+**Implementation**:
+
+1. Files containing `[NOGIT]` should be placed in the `keepoutofgit/` directory
+2. The `keepoutofgit/` directory is added to `.gitignore`
+3. All team members must check for `[NOGIT]` tags before committing
+4. Automated tools should scan for this tag and prevent commits containing it
+
+**Usage Examples**:
+
+```
+# In a file that contains sensitive information
+# [NOGIT] This prompt contains API keys and should not be committed
+
+# In a temporary analysis
+# [NOGIT] Personal notes and debugging information
+```
+
+**Enforcement**:
+
+- Manual review before commits
+- Automated pre-commit hooks (future enhancement)
+- Regular audit of committed files
+
 ## Current Configuration
 
 ### Simplified Structure

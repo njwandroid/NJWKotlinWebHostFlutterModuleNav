@@ -1,0 +1,252 @@
+You are an expert web developer and test automation specialist tasked with extending the existing `robust_run_maestro_test.sh` script to support web browsers for testing Flutter web applications. This will create a comprehensive cross-platform testing solution supporting Android, iOS, and web platforms.
+
+## Project Context
+
+You have a working robust Maestro test runner script that currently supports:
+- Android device/emulator detection and management
+- iOS simulator support (if implemented)
+- Interactive device selection with detailed information
+- Platform-specific app building and installation
+- Enhanced error handling and verbose logging
+
+Your task is to extend this script to also support web browsers while maintaining all existing functionality.
+
+## Technical Requirements
+
+### Core Web Integration
+
+1. **Browser Detection and Management**:
+   - Detect available browsers (Chrome, Firefox, Safari, Edge) on the system
+   - Handle cross-platform browser locations (macOS vs Linux/Windows)
+   - Launch browsers with specific URLs for testing
+   - Support both GUI and headless browser modes
+
+2. **Flutter Web Server Management**:
+   - Start Flutter web development server with dynamic port allocation
+   - Handle port conflicts and find available ports automatically
+   - Monitor server health and restart if needed
+   - Clean shutdown of web server after testing
+
+3. **Universal Device Selection**:
+   - Extend existing device selection to include browsers as "devices"
+   - Display unified menu with platform icons (🤖 Android, 🍎 iOS, 🌐 Web)
+   - Maintain existing selection logic for new web "devices"
+   - Support web-first preferences similar to emulator-first
+
+4. **Web Testing Workflow**:
+   - Coordinate Flutter web server startup, browser launch, and test execution
+   - Handle web-specific Maestro configuration and settings
+   - Support responsive testing across different viewport sizes
+   - Manage browser lifecycle during testing
+
+5. **Cross-Platform Integration**:
+   - Seamlessly integrate web testing with existing Android/iOS flows
+   - Support mixed testing scenarios (e.g., mobile app + web version)
+   - Maintain consistent command-line interface across platforms
+
+### Command Line Interface Extensions
+
+Add web-specific options:
+- `--web-first`: Prefer web browsers over mobile devices
+- `--browser <name>`: Target specific browser (chrome|firefox|safari|edge)
+- `--web-port <port>`: Use specific port for Flutter web server
+- `--headless`: Run browser in headless mode (if supported)
+- `--viewport <size>`: Set browser viewport size (e.g., 1920x1080)
+
+### Prerequisites and Dependencies
+
+Ensure the script properly handles:
+- Flutter web support (`flutter config --enable-web`)
+- Browser availability and installation detection
+- Network tools (`curl`, `lsof`) for port management
+- Process management for web server lifecycle
+- Cross-platform browser launching mechanisms
+
+## Implementation Strategy
+
+### Phase 1: Browser Infrastructure
+1. Add browser detection functions for all major browsers
+2. Implement cross-platform browser launching
+3. Create Flutter web server management functions
+4. Handle dynamic port allocation and conflicts
+
+### Phase 2: Device Selection Integration
+1. Extend device selection to include browsers
+2. Add web platform to unified device menu
+3. Implement web-specific preference options
+4. Update help and usage documentation
+
+### Phase 3: Web Testing Workflow
+1. Create web testing workflow orchestration
+2. Add Maestro web configuration management
+3. Implement browser-specific test adaptations
+4. Add responsive viewport testing capabilities
+
+### Phase 4: Integration and Polish
+1. Integrate with existing Android/iOS functionality
+2. Add comprehensive error handling for web scenarios
+3. Create web-specific test flow examples
+4. Add cross-platform test suite support
+
+## Key Implementation Details
+
+### Browser Detection
+```bash
+# Core functions to implement
+detect_available_browsers() {
+    # Detect Chrome, Firefox, Safari, Edge across platforms
+    # Populate BROWSER_ARRAY and BROWSER_INFO arrays
+    # Handle platform-specific browser locations
+}
+
+start_browser_with_url() {
+    # Launch specific browser with URL
+    # Handle macOS vs Linux/Windows launching
+    # Support headless mode where available
+}
+```
+
+### Flutter Web Server Management
+```bash
+start_flutter_web_server() {
+    # Enable Flutter web if not already enabled
+    # Find available port (starting from 8080)
+    # Start Flutter web server in background
+    # Wait for server readiness with health checks
+}
+
+find_available_port() {
+    # Scan for available ports to avoid conflicts
+    # Return first available port in range
+}
+```
+
+### Universal Device Selection
+```bash
+check_and_select_universal_device() {
+    # Combine Android, iOS, and web targets
+    # Display unified selection menu with platform icons
+    # Handle platform-specific preferences
+    # Set appropriate environment variables
+}
+```
+
+### Web Testing Orchestration
+```bash
+run_web_test_workflow() {
+    # Start Flutter web server
+    # Launch selected browser with app URL
+    # Configure Maestro for web testing
+    # Execute test flow
+    # Clean up resources
+}
+```
+
+## Error Handling Requirements
+
+### Web-Specific Error Scenarios
+1. **No Browsers Available**: Guide user to install supported browsers
+2. **Port Conflicts**: Automatically find alternative ports
+3. **Flutter Web Server Failures**: Detect setup issues and provide guidance
+4. **Browser Launch Failures**: Try fallback browsers or provide troubleshooting
+5. **Network Connectivity Issues**: Handle localhost connection problems
+
+### Browser Compatibility
+- Handle browser-specific quirks and limitations
+- Provide browser-specific configuration guidance
+- Support graceful degradation for unsupported features
+- Add browser-specific troubleshooting tips
+
+## Web Testing Considerations
+
+### Flutter Web Test Adaptations
+- Modify test flows to work with web URLs instead of mobile app IDs
+- Handle web-specific UI elements and interaction patterns
+- Support web navigation patterns (URLs, browser back/forward)
+- Adapt mobile gestures to web equivalents (click, scroll, etc.)
+
+### Responsive Testing
+```bash
+# Implement viewport testing functionality
+test_responsive_layouts() {
+    # Test multiple viewport sizes (desktop, tablet, mobile)
+    # Resize browser windows programmatically
+    # Run same test flows across different viewports
+}
+```
+
+### Cross-Browser Testing
+- Support testing across multiple browsers in sequence
+- Handle browser-specific rendering differences
+- Provide browser compatibility reporting
+- Support headless testing for CI/CD environments
+
+## Testing and Validation
+
+### Test Scenarios
+1. **Web-only environment**: Script detects and uses browsers effectively
+2. **Mixed environment**: Android, iOS, and web targets all available
+3. **Browser preference**: Web-first and specific browser targeting work
+4. **Server management**: Flutter web server starts/stops reliably
+5. **Error conditions**: Graceful handling of missing dependencies
+6. **Responsive testing**: Multiple viewport sizes work correctly
+
+### Cross-Platform Test Flows
+Create test flows that work across all platforms:
+- Use platform-agnostic element selectors where possible
+- Handle platform-specific UI differences gracefully
+- Test feature parity between mobile and web versions
+
+## Code Quality Requirements
+
+- Maintain existing script architecture and patterns
+- Use consistent error handling and logging approaches
+- Follow shell scripting best practices for cross-platform compatibility
+- Add comprehensive documentation for web-specific features
+- Ensure backward compatibility with existing Android/iOS functionality
+
+## Success Criteria
+
+- Script detects and lists available browsers alongside mobile devices
+- Flutter web development server starts and stops reliably
+- Web browsers launch correctly with Flutter app URLs
+- Maestro tests execute successfully in web browsers
+- Responsive testing works across different viewport sizes
+- Cross-browser testing capability is functional
+- Video recording works for web tests (if Maestro supports it)
+- All existing mobile functionality remains intact
+- Error handling provides clear guidance for web setup issues
+
+## Advanced Features (Future Considerations)
+
+1. **Progressive Web App (PWA) Testing**: Handle PWA-specific test scenarios
+2. **Web Performance Testing**: Integration with Lighthouse or similar tools
+3. **Visual Regression Testing**: Screenshot comparison across browsers
+4. **Accessibility Testing**: Web accessibility compliance validation
+5. **Cloud Browser Testing**: Integration with services like BrowserStack
+6. **Parallel Testing**: Run tests across multiple browsers simultaneously
+
+## Deliverables
+
+1. Enhanced `robust_run_maestro_test.sh` with full web browser support
+2. Updated help documentation and usage examples
+3. Web-specific error handling and troubleshooting guidance
+4. Cross-platform test flow examples demonstrating web integration
+5. Comprehensive browser compatibility documentation
+6. CI/CD integration examples for web testing
+
+## Integration Points
+
+### Existing Script Integration
+- Extend current device selection logic to include web browsers
+- Maintain existing command-line argument parsing and help system
+- Integrate with current logging and error handling patterns
+- Preserve existing Android/iOS functionality completely
+
+### Maestro Integration
+- Configure Maestro for web testing scenarios
+- Handle web-specific Maestro command syntax
+- Support web element selection and interaction patterns
+- Adapt existing test flows for web execution
+
+Focus on creating a seamless multi-platform testing experience where developers can easily test their Flutter applications across mobile devices and web browsers using a single, unified script. The web integration should feel natural and consistent with the existing mobile testing capabilities.
