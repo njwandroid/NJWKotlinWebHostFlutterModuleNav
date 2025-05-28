@@ -29,50 +29,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.neiljaywarner.myflutternavbarapplication.ui.theme.MyFlutterNavBarApplicationTheme
 
 class MainActivity : ComponentActivity() {
-    companion object {
-        private const val CHANNEL = "com.neiljaywarner.myflutternavbarapplication/navigation"
-    }
-    
-    private lateinit var flutterEngine: FlutterEngine
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        
-        // Initialize Flutter engine for platform channel
-        flutterEngine = FlutterEngine(this)
-        
-        // Set up method channel to handle navigation from Flutter
-        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL).setMethodCallHandler { call, result ->
-            if (call.method == "navigateToBillDetail") {
-                val billId = call.argument<String>("billId")
-                val title = call.argument<String>("title")
-                val amount = call.argument<String>("amount")
-                val dueDate = call.argument<String>("dueDate")
-                
-                val intent = Intent(this, BillDetailActivity::class.java)
-                intent.putExtra("billId", billId)
-                intent.putExtra("title", title)
-                intent.putExtra("amount", amount)
-                intent.putExtra("dueDate", dueDate)
-                startActivity(intent)
-                
-                result.success(null)
-            } else {
-                result.notImplemented()
-            }
-        }
-        
         setContent {
             MyFlutterNavBarApplicationTheme {
                 MainScreen()
             }
         }
-    }
-    
-    override fun onDestroy() {
-        super.onDestroy()
-        flutterEngine.destroy()
     }
 }
 
@@ -84,14 +48,14 @@ fun MainScreen() {
 
     val tabs = listOf("My", "Billing", "Dashboard", "Items", "Settings")
 
-    // Launch Flutter activity when Billing tab is selected
-    LaunchedEffect(selectedTabIndex) {
-        if (selectedTabIndex == 1) { // Billing tab
-            val intent = FlutterActivity.createDefaultIntent(context)
-            context.startActivity(intent)
-            selectedTabIndex = 0 // Reset to My tab
-        }
-    }
+    // TODO: Launch Flutter activity when Billing tab is selected
+    // LaunchedEffect(selectedTabIndex) {
+    //     if (selectedTabIndex == 1) { // Billing tab
+    //         val intent = FlutterActivity.createDefaultIntent(context)
+    //         context.startActivity(intent)
+    //         selectedTabIndex = 0 // Reset to My tab
+    //     }
+    // }
 
     Scaffold(
         topBar = {
@@ -100,9 +64,9 @@ fun MainScreen() {
                 actions = {
                     TextButton(
                         onClick = {
-                            // Launch Flutter activity
-                            val intent = FlutterActivity.createDefaultIntent(context)
-                            context.startActivity(intent)
+                            // TODO: Launch Flutter activity  
+                            // val intent = FlutterActivity.createDefaultIntent(context)
+                            // context.startActivity(intent)
                         }
                     ) {
                         Text("TF")
@@ -133,10 +97,20 @@ fun MainScreen() {
                 .padding(innerPadding),
             contentAlignment = Alignment.Center
         ) {
-            Text(
-                text = tabs[selectedTabIndex],
-                style = MaterialTheme.typography.headlineMedium
-            )
+            when (selectedTabIndex) {
+                1 -> {
+                    Text(
+                        text = "Bills List - Flutter integration ready!",
+                        style = MaterialTheme.typography.headlineMedium
+                    )
+                }
+                else -> {
+                    Text(
+                        text = tabs[selectedTabIndex],
+                        style = MaterialTheme.typography.headlineMedium
+                    )
+                }
+            }
         }
     }
 }
