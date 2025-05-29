@@ -1,0 +1,72 @@
+appId: com.neiljaywarner.myflutternavbarapplication
+---
+# Billing Tab Flutter Integration Test
+# This test verifies the Flutter integration works via both TF button and Billing tab
+
+# Launch the app
+- launchApp
+
+# Wait for the app to initialize
+- waitForAnimationToEnd
+
+# Take initial screenshot
+- takeScreenshot: billing_flutter_initial
+
+# Test 1: Navigate to Billing tab (should show "Bills List" text for now)
+- tapOn:
+    text: "Billing"
+
+- waitForAnimationToEnd
+
+- assertVisible:
+    text: "Bills List"
+
+- takeScreenshot: billing_tab_selected
+
+# Test 2: Test TF button to launch Flutter
+- tapOn:
+    text: "TF"
+
+# Wait for Flutter app to load
+- waitForAnimationToEnd
+
+# Check if we see Flutter content (the bills list we created)
+- assertVisible:
+    text: "Bills List"
+
+# Take screenshot of Flutter view
+- takeScreenshot: flutter_bills_view
+
+# Test 3: Navigate back to main app
+- pressKey: Back
+
+- waitForAnimationToEnd
+
+# Verify we're back in the main app
+- assertVisible:
+    text: "Flutter NavBar App"
+
+# Test 4: Test Billing tab direct navigation to Flutter
+- tapOn:
+    text: "Billing"
+
+- waitForAnimationToEnd
+
+# This should trigger Flutter launch via LaunchedEffect
+# We should see the Flutter bills view
+- assertVisible:
+    text: "Bills List"
+
+- takeScreenshot: billing_tab_flutter_launch
+
+# Navigate back
+- pressKey: Back
+
+- waitForAnimationToEnd
+
+# Verify we're back to main app
+- assertVisible:
+    text: "Flutter NavBar App"
+
+# Take final screenshot
+- takeScreenshot: billing_flutter_final

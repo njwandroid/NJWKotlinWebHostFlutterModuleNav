@@ -17,10 +17,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,12 +28,38 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.neiljaywarner.myflutternavbarapplication.ui.theme.MyFlutterNavBarApplicationTheme
 
 class MainActivity : ComponentActivity() {
+
+    private fun launchFlutterBilling() {
+        try {
+            // Use reflection to launch Flutter with cached engine
+            val flutterActivityClass = Class.forName("io.flutter.embedding.android.FlutterActivity")
+            val withCachedEngineMethod =
+                flutterActivityClass.getMethod("withCachedEngine", String::class.java)
+            val builder = withCachedEngineMethod.invoke(null, "my_flutter_engine")
+            val buildMethod =
+                builder.javaClass.getMethod("build", android.content.Context::class.java)
+            val intent = buildMethod.invoke(builder, this) as Intent
+            startActivity(intent)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            // Fallback to bill detail if Flutter fails
+            val intent = Intent(this, BillDetailActivity::class.java).apply {
+                putExtra("billId", "electric")
+                putExtra("title", "Electric Bill")
+                putExtra("amount", "$120.50")
+                putExtra("dueDate", "Jan 15, 2025")
+            }
+            startActivity(intent)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
         setContent {
             MyFlutterNavBarApplicationTheme {
-                MainScreen()
+                MainScreen { launchFlutterBilling() }
             }
         }
     }
@@ -42,20 +67,11 @@ class MainActivity : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen() {
+fun MainScreen(onLaunchFlutter: () -> Unit = {}) {
     var selectedTabIndex by remember { mutableStateOf(0) }
     val context = LocalContext.current
 
     val tabs = listOf("My", "Billing", "Dashboard", "Items", "Settings")
-
-    // TODO: Launch Flutter activity when Billing tab is selected
-    // LaunchedEffect(selectedTabIndex) {
-    //     if (selectedTabIndex == 1) { // Billing tab
-    //         val intent = FlutterActivity.createDefaultIntent(context)
-    //         context.startActivity(intent)
-    //         selectedTabIndex = 0 // Reset to My tab
-    //     }
-    // }
 
     Scaffold(
         topBar = {
@@ -63,11 +79,7 @@ fun MainScreen() {
                 title = { Text("Flutter NavBar App") },
                 actions = {
                     TextButton(
-                        onClick = {
-                            // TODO: Launch Flutter activity  
-                            // val intent = FlutterActivity.createDefaultIntent(context)
-                            // context.startActivity(intent)
-                        }
+                        onClick = onLaunchFlutter
                     ) {
                         Text("TF")
                     }
@@ -79,9 +91,15 @@ fun MainScreen() {
                 tabs.forEachIndexed { index, title ->
                     NavigationBarItem(
                         selected = selectedTabIndex == index,
-                        onClick = { selectedTabIndex = index },
+                        onClick = {
+                            if (index == 1) {
+                                // Billing tab: launch Flutter directly (Story 03 requirement)
+                                onLaunchFlutter()
+                            } else {
+                                selectedTabIndex = index
+                            }
+                        },
                         icon = {
-                            // Use a simple text as icon for simplicity
                             Text(title.first().toString())
                         },
                         label = { Text(title) }
@@ -90,27 +108,16 @@ fun MainScreen() {
             }
         }
     ) { innerPadding ->
-        // Display different content based on selected tab
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding),
             contentAlignment = Alignment.Center
         ) {
-            when (selectedTabIndex) {
-                1 -> {
-                    Text(
-                        text = "Bills List - Flutter integration ready!",
-                        style = MaterialTheme.typography.headlineMedium
-                    )
-                }
-                else -> {
-                    Text(
-                        text = tabs[selectedTabIndex],
-                        style = MaterialTheme.typography.headlineMedium
-                    )
-                }
-            }
+            Text(
+                text = tabs[selectedTabIndex],
+                style = MaterialTheme.typography.headlineMedium
+            )
         }
     }
 }

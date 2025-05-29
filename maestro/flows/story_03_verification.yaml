@@ -1,0 +1,136 @@
+appId: com.neiljaywarner.myflutternavbarapplication
+---
+# Story 03 Verification Test: Implement Billing Tab with Flutter-to-Kotlin Navigation
+# 
+# Requirements to verify:
+# 1. Billing tab directly displays Flutter bills list (no intermediate navigation)
+# 2. Selecting a bill navigates to a Kotlin detail view
+# 3. Back button works correctly when navigating from bill detail to billing list
+# 4. State is preserved when navigating back to billing list
+# 5. No visual glitches during transitions
+
+# Launch the app
+- launchApp
+
+# Wait for the app to initialize
+- waitForAnimationToEnd
+
+# Take initial screenshot
+- takeScreenshot: story03_initial
+
+# Requirement 1: Billing tab directly displays Flutter bills list
+- tapOn:
+    text: "Billing"
+
+# Wait for Flutter to load
+- waitForAnimationToEnd:
+    timeout: 10000
+
+# Verify we see Flutter content (Bills List from Flutter)
+- assertVisible:
+    text: "Bills List"
+
+# Take screenshot of Flutter view
+- takeScreenshot: story03_flutter_bills
+
+# Requirement 2: Selecting a bill navigates to Kotlin detail view
+# Look for one of the bills from the Flutter main.dart
+- tapOn:
+    text: "Electric Bill"
+
+# Wait for navigation to Kotlin detail page
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Verify we're in the Kotlin bill detail page
+- assertVisible:
+    text: "Bill Detail"
+
+# Verify bill details are shown
+- assertVisible:
+    text: "Electric Bill"
+
+- assertVisible:
+    text: "$120.50"
+
+# Take screenshot of Kotlin detail view
+- takeScreenshot: story03_kotlin_detail
+
+# Requirement 3: Back button works correctly
+- pressKey: Back
+
+# Wait for navigation back to Flutter
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Requirement 4: State is preserved when navigating back to billing list
+# Verify we're back in Flutter bills list
+- assertVisible:
+    text: "Bills List"
+
+# Verify all bills are still there
+- assertVisible:
+    text: "Electric Bill"
+
+- assertVisible:
+    text: "Water Bill"
+
+- assertVisible:
+    text: "Internet Bill"
+
+# Take screenshot showing preserved state
+- takeScreenshot: story03_state_preserved
+
+# Test another bill to verify functionality
+- tapOn:
+    text: "Water Bill"
+
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Verify water bill detail
+- assertVisible:
+    text: "Water Bill"
+
+- assertVisible:
+    text: "$45.25"
+
+- takeScreenshot: story03_water_bill_detail
+
+# Navigate back again
+- pressKey: Back
+
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Verify we're back in Flutter
+- assertVisible:
+    text: "Bills List"
+
+# Navigate back to main Android app
+- pressKey: Back
+
+- waitForAnimationToEnd
+
+# Verify we're back in main app
+- assertVisible:
+    text: "Flutter NavBar App"
+
+# Take final screenshot
+- takeScreenshot: story03_final
+
+# Requirement 5: Test that TF button still works independently
+- tapOn:
+    text: "TF"
+
+- waitForAnimationToEnd:
+    timeout: 5000
+
+- assertVisible:
+    text: "Bills List"
+
+- pressKey: Back
+
+- waitForAnimationToEnd
+
+- takeScreenshot: story03_tf_verification

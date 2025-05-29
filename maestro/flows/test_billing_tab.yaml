@@ -1,0 +1,31 @@
+appId: com.neiljaywarner.myflutternavbarapplication
+---
+# Simple Billing Tab Test
+
+# Launch the app
+- launchApp
+
+# Wait for the app to initialize
+- waitForAnimationToEnd
+
+# Take initial screenshot
+- takeScreenshot: billing_tab_initial
+
+# Tap on Billing tab
+- tapOn:
+    text: "Billing"
+
+# Wait for any navigation to complete
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Take screenshot after billing tab tap
+- takeScreenshot: billing_tab_tapped
+
+# Test navigation back if needed
+- pressKey: Back
+
+- waitForAnimationToEnd
+
+# Take final screenshot
+- takeScreenshot: billing_tab_final

@@ -1,0 +1,61 @@
+appId: com.neiljaywarner.myflutternavbarapplication
+---
+# Basic Billing Tab Test
+# This test verifies the basic app structure and navigation is working
+# without requiring Flutter integration to be fully complete
+
+# Launch the app
+- launchApp
+
+# Wait for the app to initialize
+- waitForAnimationToEnd
+
+# Take initial screenshot
+- takeScreenshot: billing_basic_initial
+
+# Verify we're on the My tab initially
+- assertVisible:
+    text: "My"
+
+# Navigate to Billing tab
+- tapOn:
+    text: "Billing"
+
+# Wait for navigation
+- waitForAnimationToEnd
+
+# Verify billing tab is selected and shows Bills List text
+- assertVisible:
+    text: "Bills List"
+
+# Take screenshot of billing tab
+- takeScreenshot: billing_basic_list
+
+# Navigate to other tabs to verify basic navigation works
+- tapOn:
+    text: "Dashboard"
+
+- assertVisible:
+    text: "Dashboard"
+
+- tapOn:
+    text: "Items"
+
+- assertVisible:
+    text: "Items"
+
+- tapOn:
+    text: "Settings"
+
+- assertVisible:
+    text: "Settings"
+
+# Return to billing tab
+- tapOn:
+    text: "Billing"
+
+- assertVisible:
+    text: "Bills List"
+
+# Take final screenshot
+- takeScreenshot: billing_basic_final
